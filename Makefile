@@ -9,15 +9,18 @@ test:
 full_compile:
 	python vendor/closure-library/closure/bin/build/closurebuilder.py \
 	--root=vendor/closure-library/ --root=src --namespace="norris" \
-	--output_mode=compiled --compiler_jar=closure-compiler/compiler.jar \
+	--output_mode=compiled --compiler_jar=closure/compiler.jar \
 	> public/javascripts/application.js
 
 quick_compile:
-	java -jar closure-compiler/compiler.jar \
+	java -jar closure/compiler.jar \
 	'src/**.js' '!**_test.js' \
 	--js_output_file public/javascripts/application.js
 
 gjslint:
-	gjslint --jslint_error=all --closurized_namespace --recurse src/
+	gjslint -r src --strict --jslint_error=all --closurized_namespaces=norris
 
-.PHONY: test full_compile quick_compile gjslint
+fixjsstyle:
+	fixjsstyle -r src --strict --jslint_error=all --closurized_namespaces=norris
+
+.PHONY: test full_compile quick_compile gjslint fixjsstyle
