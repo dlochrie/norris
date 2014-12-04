@@ -1,0 +1,1 @@
+var norris={cats:{}};norris.cats.catCtrl={};norris.cats.catsCtrl=function(a){this.cats=[{name:"Morris",color:"Orange"}];console.log("cats",a)};angular.module("norris",["ngRoute"]);angular.module("norris").controller("norris.cats.catCtrl",norris.cats.catCtrl);
