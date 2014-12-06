@@ -2,6 +2,9 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
 
-  div(ng-controller='norris.cats.catCtrl')
+  //- Quote Directive
+  div(quotes-generator)
+
+  div(ng-controller='CatsController')
+    pre Scope {{ cats | json }}
