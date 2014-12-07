@@ -12,6 +12,7 @@ compile_js:
 	--angular_pass \
 	--externs src/externs/**.js \
 	--js_output_file public/javascripts/application.js \
+	--generate_exports \
 	--only_closure_dependencies \
 	--closure_entry_point=norris.app \
 	--compilation_level='ADVANCED_OPTIMIZATIONS'
@@ -22,11 +23,11 @@ compile_js_debug:
 	--angular_pass \
 	--externs src/externs/**.js \
 	--js_output_file public/javascripts/application.js \
+	--generate_exports \
 	--only_closure_dependencies \
 	--closure_entry_point=norris.app \
 	--compilation_level='ADVANCED_OPTIMIZATIONS' \
-	--formatting PRETTY_PRINT \
-	--output_manifest manifest.MF
+	--formatting PRETTY_PRINT
 
 gjslint:
 	gjslint \

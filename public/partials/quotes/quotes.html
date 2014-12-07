@@ -2,11 +2,7 @@
   <div class="panel-body">
     <h3>Random Chuck Norris Quote:</h3>
     <p class="lead">{{ quote }}</p>
-    <p><button class="btn btn-default" ng-click="QuotesController.updateQuote()"
-        >Get New Quote!</button></p>
-    <p><button class="btn btn-default" ng-click="updateQuote()"
-        >Get New Quote!</button></p>
+    <button class="btn btn-default"
+        ng-click="quotesCtrl.updateQuote()">Get New Quote!</button>
   </div>
 </div>
-
-<pre>{{ QuotesController | json }}</pre>

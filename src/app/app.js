@@ -5,7 +5,8 @@ goog.require('norris.quotes.module');
 
 
 /**
- * The application's root module. This is the entry point into the application.
+ * Definition for the application root module. This is the entry point into
+ * the application.
  */
 norris.app.module = angular.module('norris', [
   norris.cats.module.name,
