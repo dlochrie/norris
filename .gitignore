@@ -28,3 +28,6 @@ node_modules
 .lock-wscript
 
 .idea
+
+# We don't need to add the compiled application.js right now.
+public/javascripts/application.js
