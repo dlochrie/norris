@@ -1,5 +1,6 @@
 goog.provide('norris.quotes.module');
 
+goog.require('norris.quotes.QuotesController');
 goog.require('norris.quotes.QuotesService');
 goog.require('norris.quotes.quotesDirective');
 

@@ -6,6 +6,9 @@ test:
 	--recursive \
 	--check-leaks
 
+test_all_unit:
+	./node_modules/karma/bin/karma start
+
 compile_js:
 	java -jar closure/compiler.jar \
 	'src/app/**.js' '!**_test.js' 'vendor/closure-library/' \
@@ -32,11 +35,11 @@ compile_js_debug:
 gjslint:
 	gjslint \
 	-r src/app \
-	--closurized_namespaces='goog,norris.app' \
+	--closurized_namespaces='goog,norris' \
 	--strict \
 	--jslint_error=all
 
 fixjsstyle:
 	fixjsstyle -r src --strict --jslint_error=all --closurized_namespaces=norris
 
-.PHONY: test compile_js compile_js_debug gjslint fixjsstyle genjsdeps
+.PHONY: test test_all_unit compile_js compile_js_debug gjslint fixjsstyle genjsdeps
