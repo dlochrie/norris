@@ -1,71 +1,169 @@
 /**
  * Karma Runner configuration.
+ * To update, modify the constants down below, but do not change method logic.
+ * @param {!Object} config The Karma configuration object.
  */
-var CLOSURE_LIB_PATH_ = 'vendor/closure-library/closure/goog/',
-    CLOSURE_BASE_ = CLOSURE_LIB_PATH_ + 'base.js',
-    CLOSURE_DEPS_ = CLOSURE_LIB_PATH_ + 'deps.js',
-    ANGULAR_LIB_PATH_ = 'vendor/angular/',
-    ANGULAR_MIN_ = ANGULAR_LIB_PATH_ + 'angular.min.js',
-    ANGULAR_MOCKS_ = ANGULAR_LIB_PATH_ + 'angular-mocks.js';
-
-// Set up the preprocessors. Closure dependencies can be resolved using
-// the karma-closure module.
-var PREPROCESSORS_ = {};
-PREPROCESSORS_['src/app/**/!(*_test).js'] = ['coverage'];
-
 module.exports = function(config) {
-  config.set({
-    // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
-
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
-
-    // Files to load in the browser when testing. ORDER is extremely important.
-    files: [
-      CLOSURE_BASE_,
-      CLOSURE_DEPS_,
-      ANGULAR_MIN_,
-      ANGULAR_MOCKS_,
-      'src/app/**/!(app).js',
-      'src/app/app.js'
-    ],
-
-    // preprocess matching files before serving them to the browser
-    preprocessors: PREPROCESSORS_,
-
-    // test results reporter to use
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
-    
-    // generate code coverage report
-    coverageReporter: {
-      type : 'html',
-      dir : 'test/unit/coverage/'
-    },
-
-    // web server port
-    port: 9876,
-
-    // enable / disable colors in the output (reporters and logs)
-    colors: true,
-
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_ERROR,
-
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
-
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
-
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
-    
-  });
+  // Configure Karma with the KarmaConfig Class.
+  var configObj = new KarmaConfig(config);
 };
+
+
+/**
+ * Karma Configuration Class.
+ * @param {!Object} config
+ * @constructor
+ */
+function KarmaConfig(config) {
+  /**
+   * The Karma Configuration object.
+   * @type {!Object.<string>}
+   * @private
+   */
+  this.config_ = config;
+
+  // Set up the Configuration for the Karma runner.
+  this.init_();
+}
+
+
+/**
+ * Initializes the Karma Configuration.
+ * @private
+ */
+KarmaConfig.prototype.init_ = function() {
+  var settings = {};
+  settings.basePath = '';
+  settings.frameworks = ['jasmine'];
+  settings.files = KarmaConfig.FILE_DEPENDENCIES_;
+  settings.preprocessors = this.getPreprocessors_();
+  settings.reporters = ['progress', 'coverage'];
+  settings.coverageReporter = {
+    type: 'html',
+    dir: 'test/unit/coverage/'
+  };
+  settings.port = 9876;
+  settings.colors = true;
+  settings.logLevel = this.config_.LOG_ERROR;
+  settings.autoWatch = true;
+  settings.browsers = ['Chrome'];
+  settings.singleRun = false;
+
+  // Pass the settings configuration to Karma.
+  this.config_.set(settings);
+};
+
+
+/**
+ * Creates and returns an object containing the required preprocessors for this configuration.
+ * @private
+ * @return {!Object.<string, string>} The preprocessors object.
+ */
+KarmaConfig.prototype.getPreprocessors_ = function() {
+  var preprocessors = {};
+  KarmaConfig.PREPROCESSORS_.forEach(function(p) {
+    preprocessors[p.key] = p.values;
+  });
+  return preprocessors;
+};
+
+
+/**
+ * Path to the Google Closure Library.
+ * @const {string}
+ * @private
+ */
+KarmaConfig.CLOSURE_LIB_PATH_ = 'vendor/closure-library/closure/goog/';
+
+
+/**
+ * Path to the Google Closure base.js file.
+ * @const {string}
+ * @private
+ */
+KarmaConfig.CLOSURE_BASE_ = KarmaConfig.CLOSURE_LIB_PATH_ + 'base.js';
+
+
+/**
+ * Path to the Google Closure deps.js file.
+ * @const {string}
+ * @private
+ */
+KarmaConfig.CLOSURE_DEPS_ = KarmaConfig.CLOSURE_LIB_PATH_ + 'deps.js';
+
+
+/**
+ * Path to the local Angular Library.
+ * @const {string}
+ * @private
+ */
+KarmaConfig.ANGULAR_LIB_PATH_ = 'vendor/angular/';
+
+
+/**
+ * Path to the main Angular JS file.
+ * @const {string}
+ * @private
+ */
+KarmaConfig.ANGULAR_MIN_ = KarmaConfig.ANGULAR_LIB_PATH_ + 'angular.min.js';
+
+
+/**
+ * Path to the Angular Mocks JS file. Required for testing.
+ * @const {string}
+ * @private
+ */
+KarmaConfig.ANGULAR_MOCKS_ = KarmaConfig.ANGULAR_LIB_PATH_ + 'angular-mocks.js';
+
+
+/**
+ * Path Pattern for source files that are NOT test files.
+ * @const {string}
+ * @private
+ */
+KarmaConfig.SOURCE_FILES_PATH_ = 'src/app/**/!(*_test).js';
+
+
+/**
+ * Path to the Angular application main app.js file.
+ * @const {string}
+ * @private
+ */
+KarmaConfig.SOURCE_FILES_APP_PATH_ = 'src/app/app.js';
+
+
+/**
+ * Path pattern the files that are not the application main path.
+ * @const {string}
+ * @private
+ */
+KarmaConfig.SOURCE_FILES_NON_APP_PATH_ = 'src/app/**/!(app).js';
+
+
+/**
+ * File dependencies for the Karma Runner.
+ * USE CAUTION: The order is extremely important here. Use the Karma Debug option in the browser for troubleshooting.
+ * @const {Array.<string|Object>}
+ * @private
+ */
+KarmaConfig.FILE_DEPENDENCIES_ = [
+  KarmaConfig.CLOSURE_BASE_,
+  KarmaConfig.CLOSURE_DEPS_,
+  KarmaConfig.ANGULAR_MIN_,
+  KarmaConfig.ANGULAR_MOCKS_,
+  KarmaConfig.SOURCE_FILES_NON_APP_PATH_,
+  KarmaConfig.SOURCE_FILES_APP_PATH_,
+  {pattern: KarmaConfig.CLOSURE_LIB_PATH_ + '**/*.js', included: false}
+];
+
+
+/**
+ * Preprocessors for the Karma Configuration.
+ * Closure dependencies can be resolved using the karma-closure module.
+ * @const {!Array.<!Object(key, value)>}
+ * @private
+ */
+KarmaConfig.PREPROCESSORS_ = [
+  {key: KarmaConfig.CLOSURE_DEPS_, values: ['closure']},
+  {key: KarmaConfig.SOURCE_FILES_PATH_, values: ['coverage']}
+];
