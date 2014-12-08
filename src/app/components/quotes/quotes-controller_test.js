@@ -9,6 +9,7 @@ describe('QuotesController', function() {
   }));
 
   it('should initialize and set the first quote on the scope', function() {
+    expect(true).toBe(true);
     console.log('nothing.');
   });
 });

@@ -11,10 +11,7 @@ var CLOSURE_LIB_PATH_ = 'vendor/closure-library/closure/goog/',
 // Set up the preprocessors. Closure dependencies can be resolved using
 // the karma-closure module.
 var PREPROCESSORS_ = {};
-PREPROCESSORS_['src/app/*_test.js'] = ['closure'];
-PREPROCESSORS_['src/app/*.js'] = ['closure'];
-PREPROCESSORS_['src/app/**/*.js'] = ['closure'];
-PREPROCESSORS_[CLOSURE_DEPS_] = ['closure-deps'];
+PREPROCESSORS_['src/app/**/!(*_test).js'] = ['coverage'];
 
 module.exports = function(config) {
   config.set({
@@ -23,32 +20,16 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'closure'],
+    frameworks: ['jasmine'],
 
     // Files to load in the browser when testing. ORDER is extremely important.
     files: [
       CLOSURE_BASE_,
+      CLOSURE_DEPS_,
       ANGULAR_MIN_,
       ANGULAR_MOCKS_,
-      {
-        pattern: 'src/app/*.js',
-        included: false,
-        served: false
-      }, {
-        pattern: 'src/app/**/*.js',
-        included: false,
-        served: false
-      }, {
-        // Tests
-        pattern: 'src/app/*_test.js'
-      }, {
-        // Tests
-        pattern: 'src/app/**/*_test.js'
-      }, {
-        pattern: CLOSURE_DEPS_,
-        included: false,
-        served: false
-      }
+      'src/app/**/!(app).js',
+      'src/app/app.js'
     ],
 
     // preprocess matching files before serving them to the browser
@@ -57,7 +38,13 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
+    
+    // generate code coverage report
+    coverageReporter: {
+      type : 'html',
+      dir : 'test/unit/coverage/'
+    },
 
     // web server port
     port: 9876,
@@ -67,7 +54,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_ERROR,
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
@@ -79,5 +66,6 @@ module.exports = function(config) {
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false
+    
   });
 };
