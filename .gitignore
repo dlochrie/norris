@@ -31,3 +31,4 @@ node_modules
 
 # We don't need to add the compiled application.js right now.
 public/javascripts/application.js
+public/javascripts/application.js.map
