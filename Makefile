@@ -44,4 +44,4 @@ gjslint:
 fixjsstyle:
 	fixjsstyle -r src --strict --jslint_error=all --closurized_namespaces=norris
 
-.PHONY: test test_all_unit compile_js compile_js_debug gjslint fixjsstyle genjsdeps
+.PHONY: test test_all_unit compile_js compile_js_debug gjslint fixjsstyle
