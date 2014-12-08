@@ -11,9 +11,9 @@ var CLOSURE_LIB_PATH_ = 'vendor/closure-library/closure/goog/',
 // Set up the preprocessors. Closure dependencies can be resolved using
 // the karma-closure module.
 var PREPROCESSORS_ = {};
-PREPROCESSORS_['src/app/*_test.js'] = ['closure'];
-PREPROCESSORS_['src/app/*.js'] = ['closure'];
-PREPROCESSORS_['src/app/**/*.js'] = ['closure'];
+PREPROCESSORS_['src/**/*_test.js'] = ['closure', 'closure-iit'];
+PREPROCESSORS_['src/**/!(*_test.js)'] = ['closure'];
+PREPROCESSORS_['src/**/!(*_test.js)/**'] = ['closure'];
 PREPROCESSORS_[CLOSURE_DEPS_] = ['closure-deps'];
 
 module.exports = function(config) {
@@ -30,25 +30,10 @@ module.exports = function(config) {
       CLOSURE_BASE_,
       ANGULAR_MIN_,
       ANGULAR_MOCKS_,
-      {
-        pattern: 'src/app/*.js',
-        included: false,
-        served: false
-      }, {
-        pattern: 'src/app/**/*.js',
-        included: false,
-        served: false
-      }, {
-        // Tests
-        pattern: 'src/app/*_test.js'
-      }, {
-        // Tests
-        pattern: 'src/app/**/*_test.js'
-      }, {
-        pattern: CLOSURE_DEPS_,
-        included: false,
-        served: false
-      }
+      {pattern: 'src/**/!(*_test.js)'},
+      {pattern: 'src/**/!(*_test.js)/**'},
+      {pattern: 'src/**/*_test.js'},
+      {pattern: CLOSURE_DEPS_, included: false, served: false}
     ],
 
     // preprocess matching files before serving them to the browser
