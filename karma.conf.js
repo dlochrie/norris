@@ -54,6 +54,7 @@ KarmaConfig.prototype.init_ = function() {
    * a directory that is different from you "store" them locally, then you might want to change the "stripPrefix" and
    * "prependPrefix" settings accordingly. For help, see the Karma Debug console in chrome.
    * @type {{stripPrefix: string, prependPrefix: string}}
+   * @TODO(dlochrie): Should these be defined as constants?
    */
   settings.ngHtml2JsPreprocessor = {
     stripPrefix: 'src/app/',
@@ -152,6 +153,14 @@ KarmaConfig.SOURCE_FILES_NON_APP_PATH_ = 'src/app/**/!(app).js';
 
 
 /**
+ * Path pattern for partials. This is the SOURCE path, and not the DESTINATION path.
+ * @const {string}
+ * @private
+ */
+KarmaConfig.PARTIALS_PATH_SOURCE_PATH_ = 'src/app/**/*.html';
+
+
+/**
  * File dependencies for the Karma Runner.
  * USE CAUTION: The order is extremely important here. Use the Karma Debug option in the browser for troubleshooting.
  * @const {Array.<string|Object>}
@@ -165,7 +174,7 @@ KarmaConfig.FILE_DEPENDENCIES_ = [
   KarmaConfig.SOURCE_FILES_NON_APP_PATH_,
   KarmaConfig.SOURCE_FILES_APP_PATH_,
   {pattern: KarmaConfig.CLOSURE_LIB_PATH_ + '**/*.js', included: false},
-  'src/app/**/*.html'
+  KarmaConfig.PARTIALS_PATH_SOURCE_PATH_
 ];
 
 
@@ -179,5 +188,5 @@ KarmaConfig.FILE_DEPENDENCIES_ = [
 KarmaConfig.PREPROCESSORS_ = [
   {key: KarmaConfig.CLOSURE_DEPS_, values: ['closure']},
   {key: KarmaConfig.SOURCE_FILES_PATH_, values: ['coverage']},
-  {key: 'src/app/**/*.html', values: 'ng-html2js'}
+  {key: KarmaConfig.PARTIALS_PATH_SOURCE_PATH_, values: 'ng-html2js'}
 ];
