@@ -18,7 +18,9 @@ compile_js:
 	--generate_exports \
 	--only_closure_dependencies \
 	--closure_entry_point=norris.app \
-	--compilation_level='ADVANCED_OPTIMIZATIONS'
+	--compilation_level='ADVANCED_OPTIMIZATIONS' \
+	--output_wrapper='(function(){%output%})();//# sourceMappingURL=application.js.map' \
+	--create_source_map='./public/javascripts/application.js.map'
 
 compile_js_debug:
 	java -jar closure/compiler.jar \
