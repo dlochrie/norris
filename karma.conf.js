@@ -49,6 +49,17 @@ KarmaConfig.prototype.init_ = function() {
   settings.browsers = ['Chrome'];
   settings.singleRun = false;
 
+  /**
+   * NG HTML Preprocessor Settings. Helps to create modules to use in testing. If you are "serving" your partials from
+   * a directory that is different from you "store" them locally, then you might want to change the "stripPrefix" and
+   * "prependPrefix" settings accordingly. For help, see the Karma Debug console in chrome.
+   * @type {{stripPrefix: string, prependPrefix: string}}
+   */
+  settings.ngHtml2JsPreprocessor = {
+    stripPrefix: 'src/app/',
+    prependPrefix: 'partials/'
+  };
+
   // Pass the settings configuration to Karma.
   this.config_.set(settings);
 };
@@ -153,17 +164,20 @@ KarmaConfig.FILE_DEPENDENCIES_ = [
   KarmaConfig.ANGULAR_MOCKS_,
   KarmaConfig.SOURCE_FILES_NON_APP_PATH_,
   KarmaConfig.SOURCE_FILES_APP_PATH_,
-  {pattern: KarmaConfig.CLOSURE_LIB_PATH_ + '**/*.js', included: false}
+  {pattern: KarmaConfig.CLOSURE_LIB_PATH_ + '**/*.js', included: false},
+  'src/app/**/*.html'
 ];
 
 
 /**
  * Preprocessors for the Karma Configuration.
  * Closure dependencies can be resolved using the karma-closure module.
+ * "ng-html2js" pre-caches our html and serves them as a JS module.
  * @const {!Array.<!Object(key, value)>}
  * @private
  */
 KarmaConfig.PREPROCESSORS_ = [
   {key: KarmaConfig.CLOSURE_DEPS_, values: ['closure']},
-  {key: KarmaConfig.SOURCE_FILES_PATH_, values: ['coverage']}
+  {key: KarmaConfig.SOURCE_FILES_PATH_, values: ['coverage']},
+  {key: 'src/app/**/*.html', values: 'ng-html2js'}
 ];
