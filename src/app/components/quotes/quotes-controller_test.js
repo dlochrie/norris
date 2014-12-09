@@ -1,3 +1,6 @@
+goog.require('goog.array');
+
+
 describe('QuotesController', function() {
   var ctrl, scope;
   var quoteList = norris.quotes.QuotesController.NORRIS_QUOTES_;
@@ -24,9 +27,11 @@ describe('QuotesController', function() {
   it('should update the current quote', function() {
     ctrl.updateQuote();
     var currentQuote = ctrl.scope_.quote;
-    expect(goog.array.contains((norris.quotes.QuotesController.NORRIS_QUOTES_, currentQuote)));
+    expect(goog.array.contains((norris.quotes.QuotesController.NORRIS_QUOTES_,
+        currentQuote)));
 
-    // Assert that updating the quote will result in a new quote not equal to the current one.
+    // Assert that updating the quote will result in a new quote not equal to
+    // the current one.
     ctrl.updateQuote();
     expect(ctrl.scope_.quote).not.toEqual(currentQuote);
   });

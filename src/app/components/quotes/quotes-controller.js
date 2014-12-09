@@ -3,6 +3,7 @@ goog.provide('norris.quotes.QuotesController');
 goog.require('goog.math');
 
 
+
 /**
  * Controller for the Quotes Directive.
  * @param {!angular.Scope} $scope The directive's scope.
@@ -25,6 +26,7 @@ norris.quotes.QuotesController = function($scope) {
 
 /**
  * Gets a new randomly selected quote.
+ * @return {string} The new quote.
  * @export
  */
 norris.quotes.QuotesController.prototype.getNewQuote = function() {
