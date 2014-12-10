@@ -11,7 +11,7 @@ test_all_unit:
 
 compile_js:
 	java -jar closure/compiler.jar \
-	'src/app/**.js' '!**_test.js' 'vendor/closure-library/' \
+	'src/app/**.js' 'generated/template-cache.js' '!**_test.js' 'vendor/closure-library/' \
 	--angular_pass \
 	--externs src/externs/**.js \
 	--js_output_file public/javascripts/application.js \

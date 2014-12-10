@@ -2,6 +2,7 @@ goog.provide('norris.app');
 
 goog.require('norris.cats.module');
 goog.require('norris.quotes.module');
+goog.require('norris.templates');
 
 
 /**
@@ -11,4 +12,4 @@ goog.require('norris.quotes.module');
 norris.app.module = angular.module('norris', [
   norris.cats.module.name,
   norris.quotes.module.name
-]);
+]).run(norris.templates);

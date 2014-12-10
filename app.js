@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/javascripts/generated', express.static(__dirname + '/generated'));
 app.use('/javascripts/src', express.static(__dirname + '/src'));
 app.use('/javascripts/vendor', express.static(__dirname + '/vendor'));
 
