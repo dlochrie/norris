@@ -10,6 +10,24 @@ goog.require('norris.templates');
  * the application.
  */
 norris.app.module = angular.module('norris', [
+  'ngRoute',
   norris.cats.module.name,
   norris.quotes.module.name
-]).run(norris.templates);
+]).config(Router).
+    run(norris.templates);
+
+
+/**
+ * Router for the application.
+ * @param {!angular.$routeProvider} $routeProvider The Angular Route service.
+ * @constructor
+ * @ngInject
+ * @export
+ */
+function Router($routeProvider) {
+  $routeProvider.when('/cats', {
+    templateUrl: 'partials/views/cats/catview.html',
+    controller: 'CatViewController',
+    controllerAs: 'catViewCtrl'
+  });
+}
