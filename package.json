@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "template-cache": "node ./bin/template-cache"
+    "template-cache": "node ./bin/template_cache"
   },
   "dependencies": {
     "express": "~4.9.0",
