@@ -2,12 +2,12 @@
 var _ = require('lodash');
 var async = require('async');
 var fs = require('fs');
-var glob = require("glob");
+var glob = require('glob');
 var jade = require('jade');
 var htmlmin = require('htmlmin');
 
-glob("src/app/**/*.{jade,html}", function (err, files) {
-  if(err) console.log(err);
+glob('src/app/**/*.{jade,html}', function(err, files) {
+  if (err) console.log(err);
 
   var templates = [];
 
@@ -16,36 +16,34 @@ glob("src/app/**/*.{jade,html}", function (err, files) {
   }
 
   async.map(files, readAsync, function(err, results) {
-    if(err) console.log(err);
-    templates = files.map(function(file, index){
-      var f = {
-          path: file.replace(/src\/app\/(.*?)$/, '$1')
-        };
+    if (err) console.log(err);
+    templates = files.map(function(file, index) {
+      var f = {path: file.replace(/src\/app\/(.*?)$/, '$1')};
 
-      if(file.split('.').pop() === 'jade'){
+      if (file.split('.').pop() === 'jade') {
         f.path = f.path.replace(/^(.*?)\.jade/, '$1.html');
         f.contents = jade.render(results[index]);
       } else {
-        f.contents = htmlmin(results[index])
+        f.contents = htmlmin(results[index]);
       }
       f.contents.replace(/'/g, '\\\'');
       return f;
     });
 
-    fs.readFile('stuff/template-cache.js.tpl', 'utf8', function(err, contents){
-      if(err) console.log(err);
-      fs.exists('generated', function(exists){
-        if(!exists){
-          fs.mkdirSync('generated', function(err){
-            if(err) console.log(err);
+    fs.readFile('stuff/template-cache.js.tpl', 'utf8', function(err, contents) {
+      if (err) console.log(err);
+      fs.exists('generated', function(exists) {
+        if (!exists) {
+          fs.mkdirSync('generated', function(err) {
+            if (err) console.log(err);
           });
         }
-        fs.writeFile('generated/template-cache.js', _.template(contents, {templates: templates}),function(err){
-          if(err) console.log(err);
-          console.log('generated/template-cache.js > generated/template-cache.js');
-        });
+        fs.writeFile('generated/template-cache.js', _.template(
+            contents, {templates: templates}), function(err) {
+              if (err) console.log(err);
+              console.log('generated/template-cache.js > generated/template-cache.js');
+            });
       });
-
     });
   });
 });
