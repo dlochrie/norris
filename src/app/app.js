@@ -26,7 +26,7 @@ norris.app.module = angular.module('norris', [
  */
 function Router($routeProvider) {
   $routeProvider.when('/cats', {
-    templateUrl: 'partials/views/cats/catview.html',
+    templateUrl: 'views/cats/catview.html',
     controller: 'CatViewController',
     controllerAs: 'catViewCtrl'
   });

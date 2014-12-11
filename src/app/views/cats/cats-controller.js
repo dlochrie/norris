@@ -47,14 +47,24 @@ norris.cats.CatsController.prototype.getCats = function() {
 
 
 /**
- * Adds a new empty cat field.
+ * Adds a new cat.
  * @export
  */
 norris.cats.CatsController.prototype.addCat = function() {
   var scope = this.scope_;
-  var model = angular.copy(scope.editCat);
-  scope.cats.push(model);
+  var model = angular.copy(scope['editCat']);
+  scope['cats'].push(model);
   scope.editCat = {name: null, color: null};
+};
+
+
+/**
+ * Removes a cat.
+ * @export
+ */
+norris.cats.CatsController.prototype.removeCat = function(index) {
+  var scope = this.scope_;
+  goog.array.removeAt(scope['cats'], index);
 };
 
 
