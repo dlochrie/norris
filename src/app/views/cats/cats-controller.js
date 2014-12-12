@@ -1,5 +1,7 @@
 goog.provide('norris.cats.CatsController');
 
+goog.require('goog.array');
+
 
 
 /**
@@ -54,12 +56,13 @@ norris.cats.CatsController.prototype.addCat = function() {
   var scope = this.scope_;
   var model = angular.copy(scope['editCat']);
   scope['cats'].push(model);
-  scope.editCat = {name: null, color: null};
+  scope['editCat'] = {name: null, color: null};
 };
 
 
 /**
  * Removes a cat.
+ * @param {number} index The index at which to remove the cat.
  * @export
  */
 norris.cats.CatsController.prototype.removeCat = function(index) {
@@ -70,7 +73,7 @@ norris.cats.CatsController.prototype.removeCat = function(index) {
 
 /**
  * The default cats list.
- * @const {!Array.<{!Object}>}
+ * @const {!Array.<!Object>}
  * @private
  */
 norris.cats.CatsController.DEFAULT_CATS_LIST_ = [

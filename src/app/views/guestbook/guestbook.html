@@ -1,0 +1,44 @@
+<h2>Guest Book</h2>
+
+<nav class="navbar navbar-default" role="search">
+  <div class="container">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+      <p class="navbar-text">Filter Results</p>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="searchText"
+              placeholder="Search">
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Occupation</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="info">
+      <td><input ng-model="editGuest.name" placeholder="Name"
+          class="form-control"></td>
+      <td><input ng-model="editGuest.age" placeholder="Age"
+          class="form-control"></td>
+      <td><input ng-model="editGuest.occupation" placeholder="Occupation"
+          class="form-control"></td>
+      <td><button class="btn btn-primary" ng-click="guestCtrl.addGuest()"
+          >&plus;</button></td>
+    </tr>
+    <tr ng-repeat="guest in guests | filter: searchText">
+      <td>{{ guest.name }}</td>
+      <td>{{ guest.age }}</td>
+      <td>{{ guest.occupation }}</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,44 @@
+<h2>Cats!</h2>
+
+<nav class="navbar navbar-default" role="search">
+  <div class="container">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+      <p class="navbar-text">Filter Results</p>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="searchText"
+              placeholder="Search">
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Color</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="info">
+      <td><input ng-model="editCat.name" placeholder="Name"
+          class="form-control"></td>
+      <td><input ng-model="editCat.color" placeholder="Color"
+          class="form-control"></td>
+      <td><button class="btn btn-primary" ng-click="catsCtrl.addCat()"
+          >&plus;</button></td>
+    </tr>
+    <tr ng-if="!cats.length">
+      <td colspan="3">There are no Cats. Fill out the form to add one.</td>
+    </tr>
+    <tr ng-if="cats.length" ng-repeat="cat in cats | filter: searchText">
+      <td>{{ cat.name }}</td>
+      <td>{{ cat.color}}</td>
+      <td><button class="btn btn-danger" ng-click="catsCtrl.removeCat($index)"
+          >&times;</button></td>
+    </tr>
+  </tbody>
+</table>

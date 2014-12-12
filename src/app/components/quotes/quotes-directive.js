@@ -11,7 +11,7 @@ norris.quotes.quotesDirective = function() {
   return {
     scope: true,
     restrict: 'A',
-    templateUrl: 'partials/components/quotes/quotes.html',
+    templateUrl: 'components/quotes/quotes.html',
     controller: norris.quotes.QuotesController,
     controllerAs: 'quotesCtrl'
   };

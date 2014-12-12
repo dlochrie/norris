@@ -19,8 +19,10 @@ norris.quotes.QuotesController = function($scope) {
    */
   this.scope_ = $scope;
 
-  // Initialize with the first random quote.
-  this.updateQuote();
+  // Initialize with the first random quote - if there is not one already.
+  if (!$scope.quote) {
+    this.updateQuote();
+  }
 };
 
 

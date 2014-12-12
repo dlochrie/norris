@@ -22,16 +22,16 @@ html(lang='en', ng-app='norris')
             span.icon-bar
             span.icon-bar
 
-          a.navbar-brand(href='#') Norris
+          a.navbar-brand(href='#/') Norris
 
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
             li
-              a(href='#') Home
+              a(href='#/') Home
             li
-              a(href='#about') About
+              a(href='#/cats') Cats!
             li
-              a(href='#contact') Contact
+              a(href='#/guestbook') Guest Book
 
     .container
       .page-header
@@ -42,16 +42,14 @@ html(lang='en', ng-app='norris')
         .col-md-3
           ul.nav.nav-stacked
             li
+              a(href='#/') Home
+            li
               a(href='#/cats') Cats!
             li
-              a(href='#') Link Two
-            li
-              a(href='#') Link Three
-
+              a(href='#/guestbook') Guest Book
 
         .col-md-9
           block content
-
 
       footer.footer
         | &copy; Norris Enterpises 2014

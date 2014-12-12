@@ -5,7 +5,7 @@ describe('QuotesDirective', function() {
   var scope, el, initialQuote;
 
   beforeEach(module('norris.quotes'));
-  beforeEach(module('partials/components/quotes/quotes.html'));
+  beforeEach(module('components/quotes/quotes.html'));
 
   beforeEach(inject(function($compile, $rootScope) {
     scope = $rootScope;
