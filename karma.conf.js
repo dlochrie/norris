@@ -58,7 +58,7 @@ KarmaConfig.prototype.init_ = function() {
    */
   settings.ngHtml2JsPreprocessor = {
     stripPrefix: 'src/app/',
-    prependPrefix: 'partials/'
+    prependPrefix: ''
   };
 
   // Pass the settings configuration to Karma.
@@ -171,6 +171,7 @@ KarmaConfig.FILE_DEPENDENCIES_ = [
   KarmaConfig.CLOSURE_DEPS_,
   KarmaConfig.ANGULAR_MIN_,
   KarmaConfig.ANGULAR_MOCKS_,
+  {pattern: 'generated/template-cache.js'},
   KarmaConfig.SOURCE_FILES_NON_APP_PATH_,
   KarmaConfig.SOURCE_FILES_APP_PATH_,
   {pattern: KarmaConfig.CLOSURE_LIB_PATH_ + '**/*.js', included: false},
