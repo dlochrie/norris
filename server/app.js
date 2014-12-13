@@ -12,8 +12,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(session({
   secret: 'd431a5fa-65f5-456e-a1ba-9fb0e4a1b483',
@@ -23,17 +21,20 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/javascripts/generated', express.static(__dirname + '/generated'));
-app.use('/javascripts/src', express.static(__dirname + '/src'));
-app.use('/javascripts/vendor', express.static(__dirname + '/vendor'));
+app.use(express.static(path.join(__dirname, '../public')));
 
+// Make source map and dependencies available.
+var sources = ['generated', 'src', 'vendor'];
+sources.forEach(function(source) {
+  app.use('/javascripts/' + source,
+      express.static(path.join(__dirname, '../' + source)));
+});
 
 /**
  * Set up controllers / routes.
  */
-var index = require('./server/index'),
-    api = require('./server/api');
+var index = require('./controllers/index'),
+    api = require('./controllers/api');
 
 app.use('/', index);
 app.use('/api', api);
