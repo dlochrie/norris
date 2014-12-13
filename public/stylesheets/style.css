@@ -1,14 +1,21 @@
-body { padding-top: 70px; }
+/**
+ * Colorscheme: http://paletton.com/#uid=a3i0u0k5OTM00++65+84Jt60dhc
+ */
+body {
+  color: #525252;
+  padding-top: 70px;
+}
 
 #top-nav.navbar-default {
-  background-color: #888;
-  color: #ffffff;
+  background-color: #BEE8E8;
+  color: #898988;
 }
 
 #top-nav.navbar-default .navbar-brand,
-#top-nav.navbar-default .navbar-brand:hover,
-#top-nav.navbar-default .navbar-nav>li>a,
-#top-nav.navbar-default .navbar-nav>li>a:hover {
-  color: #ffffff;
-}
+#top-nav.navbar-default .navbar-nav>li>a { color: #898988; }
 
+
+#top-nav.navbar-default .navbar-brand:hover,
+#top-nav.navbar-default .navbar-nav>li>a:hover { color: #525252; }
+
+.norris-sidebar li a { color: #778B8B; }

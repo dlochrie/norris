@@ -34,6 +34,9 @@ compile_js_debug:
 	--compilation_level='ADVANCED_OPTIMIZATIONS' \
 	--formatting PRETTY_PRINT
 
+dependencies:
+	node ./bin/template_cache && make compile_js
+
 gjslint:
 	gjslint \
 	-r src/app \
@@ -45,3 +48,4 @@ fixjsstyle:
 	fixjsstyle -r src --strict --jslint_error=all --closurized_namespaces=norris
 
 .PHONY: test test_all_unit compile_js compile_js_debug gjslint fixjsstyle
+				dependencies
