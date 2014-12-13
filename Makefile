@@ -10,7 +10,7 @@ test_all_unit:
 	./node_modules/karma/bin/karma start
 
 compile_js:
-	java -jar closure/compiler.jar \
+	java -jar bin/compiler.jar \
 	'client/src/app/**.js' 'generated/template-cache.js' \
 	'!**_test.js' 'client/third-party/closure-library/' \
 	--angular_pass \
@@ -24,7 +24,7 @@ compile_js:
 	--create_source_map='./public/javascripts/application.js.map'
 
 compile_js_debug:
-	java -jar closure/compiler.jar \
+	java -jar bin/compiler.jar \
 	'client/src/app/**.js' 'generated/template-cache.js' \
 	'!**_test.js' 'client/third-party/closure-library/' \
 	--angular_pass \
