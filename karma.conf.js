@@ -85,7 +85,7 @@ KarmaConfig.prototype.getPreprocessors_ = function() {
  * @const {string}
  * @private
  */
-KarmaConfig.CLOSURE_LIB_PATH_ = 'client/third-party/closure-library/closure/goog/';
+KarmaConfig.CLOSURE_LIB_PATH_ = 'client/closure-library/closure/goog/';
 
 
 /**
