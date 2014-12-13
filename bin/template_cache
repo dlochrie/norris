@@ -7,7 +7,7 @@ var jade = require('jade');
 var minify = require('html-minifier').minify;
 
 
-glob('src/app/**/*.{jade,html}', function(err, files) {
+glob('client/src/app/**/*.{jade,html}', function(err, files) {
   if (err) console.log(err);
 
   var templates = [];
@@ -19,7 +19,7 @@ glob('src/app/**/*.{jade,html}', function(err, files) {
   async.map(files, readAsync, function(err, results) {
     if (err) console.log(err);
     templates = files.map(function(file, index) {
-      var f = {path: file.replace(/src\/app\/(.*?)$/, '$1')};
+      var f = {path: file.replace(/client\/src\/app\/(.*?)$/, '$1')};
 
       if (file.split('.').pop() === 'jade') {
         f.path = f.path.replace(/^(.*?)\.jade/, '$1.html');
