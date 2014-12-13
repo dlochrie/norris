@@ -13,7 +13,7 @@ goog.require('norris.templates');
  * the application.
  */
 norris.app.module = angular.module('norris', [
-  'ngRoute',
+  'ui.router',
   norris.cats.module.name,
   norris.guestbook.module.name,
   norris.home.module.name,
@@ -26,29 +26,38 @@ norris.app.module = angular.module('norris', [
 
 /**
  * Router for the application.
- * @param {!angular.$routeProvider} $routeProvider The Angular Route service.
+ * @param {!ui.router.$stateProvider} $stateProvider The $stateProvider service.
+ * @param {!ui.router.$urlRouterProvider} $urlRouterProvider The
+ *     $urlRouterProvider service.
  * @constructor
  * @ngInject
  * @export
  */
-function Router($routeProvider) {
-  $routeProvider.
-      when('/', {
+function Router($stateProvider, $urlRouterProvider) {
+  // Set the default redirect for any missing route.
+  $urlRouterProvider.otherwise('/');
+
+  $stateProvider.
+      state('home', {
+        url: '/',
         templateUrl: 'views/home/home.html',
         controller: 'HomeController',
         controllerAs: 'homeCtrl'
       }).
-      when('/cats', {
+      state('cats', {
+        url: '/cats',
         templateUrl: 'views/cats/cats.html',
         controller: 'CatsController',
         controllerAs: 'catsCtrl'
       }).
-      when('/guestbook', {
+      state('guestbook', {
+        url: '/guestbook',
         templateUrl: 'views/guestbook/guestbook.html',
         controller: 'GuestBookController',
         controllerAs: 'guestCtrl'
       }).
-      when('/posts', {
+      state('posts', {
+        url: '/posts',
         templateUrl: 'views/posts/posts.html',
         controller: 'PostsController',
         controllerAs: 'postsCtrl'
