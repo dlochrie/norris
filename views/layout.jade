@@ -12,7 +12,7 @@ html(lang='en', ng-app='norris')
     script(src='/javascripts/application.js')
   body
 
-    nav.navbar.navbar-fixed-top(role='navigation')
+    nav.navbar.navbar-fixed-top.navbar-default(role='navigation', id='top-nav')
       .container
         .navbar-header
           button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar',
@@ -31,6 +31,8 @@ html(lang='en', ng-app='norris')
             li
               a(href='#/cats') Cats!
             li
+              a(href='#/posts') Posts
+            li
               a(href='#/guestbook') Guest Book
 
     .container
@@ -45,6 +47,8 @@ html(lang='en', ng-app='norris')
               a(href='#/') Home
             li
               a(href='#/cats') Cats!
+            li
+              a(href='#/posts') Posts
             li
               a(href='#/guestbook') Guest Book
 
