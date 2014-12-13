@@ -3,6 +3,7 @@ goog.provide('norris.app');
 goog.require('norris.cats.module');
 goog.require('norris.guestbook.module');
 goog.require('norris.home.module');
+goog.require('norris.posts.module');
 goog.require('norris.quotes.module');
 goog.require('norris.templates');
 
@@ -16,6 +17,7 @@ norris.app.module = angular.module('norris', [
   norris.cats.module.name,
   norris.guestbook.module.name,
   norris.home.module.name,
+  norris.posts.module.name,
   norris.quotes.module.name
 ]).config(Router).
     run(norris.templates);
@@ -45,5 +47,10 @@ function Router($routeProvider) {
         templateUrl: 'views/guestbook/guestbook.html',
         controller: 'GuestBookController',
         controllerAs: 'guestCtrl'
+      }).
+      when('/posts', {
+        templateUrl: 'views/posts/posts.html',
+        controller: 'PostsController',
+        controllerAs: 'postsCtrl'
       });
 }

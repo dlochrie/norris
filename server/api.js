@@ -17,8 +17,8 @@ router.post('/posts', function(req, res) {
   req.session.posts = req.session.posts || [];
   req.session.posts.push(req.body);
 
-  // Return all the posts.
-  res.json(req.session.posts);
+  // Return success.
+  res.send(200).end();
 });
 
 
