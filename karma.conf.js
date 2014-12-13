@@ -109,7 +109,7 @@ KarmaConfig.CLOSURE_DEPS_ = KarmaConfig.CLOSURE_LIB_PATH_ + 'deps.js';
  * @const {string}
  * @private
  */
-KarmaConfig.ANGULAR_LIB_PATH_ = 'client/third-party/angular/';
+KarmaConfig.ANGULAR_LIB_PATH_ = 'public/third-party/angular/';
 
 
 /**
