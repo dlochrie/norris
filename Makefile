@@ -43,7 +43,7 @@ dependencies:
 
 gjslint:
 	gjslint \
-	-r src/app \
+	-r client/src/app \
 	--closurized_namespaces='goog,norris' \
 	--strict \
 	--jslint_error=all

@@ -6,6 +6,7 @@ goog.require('norris.guestbook.GuestBookService');
 
 /**
  * The guestbook module definition.
+ * @return {!angular.Module}
  */
 norris.guestbook.module = angular.module('norris.guestbook', []).
     controller('GuestBookController', norris.guestbook.GuestBookController).

@@ -6,6 +6,7 @@ goog.require('norris.posts.PostsController');
 
 /**
  * The posts module definition.
+ * @return {!angular.Module}
  */
 norris.posts.module = angular.module('norris.posts', [
   norris.apiproxy.module.name

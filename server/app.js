@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Make source map and dependencies available.
-var sources = ['generated', 'src', 'third-party'];
+var sources = ['client', 'generated', 'third-party'];
 sources.forEach(function(source) {
   app.use('/javascripts/' + source,
       express.static(path.join(__dirname, '../' + source)));
