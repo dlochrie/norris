@@ -12,7 +12,7 @@ test_all_unit:
 compile_js:
 	java -jar closure/compiler.jar \
 	'client/src/app/**.js' 'generated/template-cache.js' \
-	'!**_test.js' 'vendor/closure-library/' \
+	'!**_test.js' 'client/third-party/closure-library/' \
 	--angular_pass \
 	--externs client/src/externs/**.js \
 	--js_output_file public/javascripts/application.js \
@@ -26,7 +26,7 @@ compile_js:
 compile_js_debug:
 	java -jar closure/compiler.jar \
 	'client/src/app/**.js' 'generated/template-cache.js' \
-	'!**_test.js' 'vendor/closure-library/' \
+	'!**_test.js' 'client/third-party/closure-library/' \
 	--angular_pass \
 	--externs client/src/externs/**.js \
 	--js_output_file public/javascripts/application.js \
