@@ -61,5 +61,11 @@ function Router($stateProvider, $urlRouterProvider) {
         templateUrl: 'views/posts/posts.html',
         controller: 'PostsController',
         controllerAs: 'postsCtrl'
+      }).
+      state('posts.show', {
+        templateUrl: 'views/posts/partials/show.html'
+      }).
+      state('posts.add', {
+        templateUrl: 'views/posts/partials/add.html'
       });
 }

@@ -5,13 +5,14 @@ goog.provide('norris.posts.PostsController');
 /**
  * Posts Controller.
  * @param {!angular.Scope} $scope The current controller $scope.
+ * @param {!ui.router.$state} $state The ui-router state service.
  * @param {!norris.apiproxy.ApiProxyService} apiProxyService
  *     The ApiProxy Service.
  * @constructor
  * @ngInject
  * @export
  */
-norris.posts.PostsController = function($scope, apiProxyService) {
+norris.posts.PostsController = function($scope, $state, apiProxyService) {
   /**
    * Reference to Injected Services.
    * @type {!Object.<string, !Object>}
@@ -19,6 +20,7 @@ norris.posts.PostsController = function($scope, apiProxyService) {
    */
   this.ij_ = {
     scope: $scope,
+    state: $state,
     apiProxy: apiProxyService
   };
 
@@ -40,8 +42,17 @@ norris.posts.PostsController = function($scope, apiProxyService) {
    */
   $scope['posts'] = [];
 
-  // Get the initial posts.
-  this.getPosts_();
+  // // Get the initial posts.
+  // this.getPosts_();
+
+  // // Set the initial view as the 'show' view.
+  // // TODO(dlochrie): See about contributing to:
+  // // https://github.com/google/closure-compiler/blob/master/contrib/
+  // // externs/angular_ui_router.js
+  // // ...which should help with the propery renaming here...
+  // $state['transitionTo']('posts.show');
+
+  this.init_();
 };
 
 
@@ -51,6 +62,22 @@ norris.posts.PostsController = function($scope, apiProxyService) {
  * @private
  */
 norris.posts.PostsController.MODULE_NAME_ = 'posts';
+
+
+/**
+ * Initialize the controller.
+ */
+norris.posts.PostsController.prototype.init_ = function() {
+  // Get the initial posts.
+  this.getPosts_();
+
+  // Set the initial view as the 'show' view.
+  // TODO(dlochrie): See about contributing to:
+  // https://github.com/google/closure-compiler/blob/master/contrib/...
+  // ...externs/angular_ui_router.js
+  // Adding to the extens can help out in the property renaming.
+  this.ij_.state['transitionTo']('posts.show');
+}
 
 
 /**
@@ -76,7 +103,8 @@ norris.posts.PostsController.prototype.getPosts_ = function() {
 norris.posts.PostsController.prototype.addPost = function() {
   var ij = this.ij_,
       apiProxy = ij.apiProxy,
-      scope = ij.scope;
+      scope = ij.scope,
+      state = ij.state;
 
   var post = angular.copy(scope['editRow']);
   apiProxy.add(norris.posts.PostsController.MODULE_NAME_, post).
@@ -86,6 +114,8 @@ norris.posts.PostsController.prototype.addPost = function() {
         scope['posts'].push(post);
         // Clear the model so the form will be empty.
         scope['editRow'] = {};
+        // Go to the 'show' view.
+        state['transitionTo']('posts.show');
       }, function() {
         scope['message'] = 'Could not add the post. Please try again.';
       });

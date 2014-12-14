@@ -137,5 +137,4 @@ ui.router.$stateProvider = function(
  * @param {Object} definition
  * @return {!ui.router.$stateProvider}
  */
-ui.router.$stateProvider.prototype.state = function(
-    name, definition) {};
+ui.router.$stateProvider.prototype.state = function(name, definition) {};

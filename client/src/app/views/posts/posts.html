@@ -4,41 +4,13 @@
   <p>{{ message}}</p>
 </div>
 
-<table class="table table-striped table-hover table-bordered">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Category</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="post in posts">
-      <td>{{ post.title }}</td>
-      <td>{{ post.category }}</td>
-    </tr>
-  </tbody>
-</table>
+<ul class="list-inline">
+  <li>
+    <a ui-sref="posts.show">Show</a>
+  </li>
+  <li>
+    <a ui-sref="posts.add">Add</a>
+  </li>
+</ul>
 
-<form role="form">
-  <fieldset>Fill out the form below to add a Post</fieldset>
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input type="text" class="form-control" id="title"
-        ng-model="editRow.title"
-        placeholder="Neil Armstrong, We Hardly Knew Ye">
-  </div>
-  <div class="form-group">
-    <label for="category">Category</label>
-    <input type="text" class="form-control" id="category"
-        ng-model="editRow.category"
-        placeholder="Sports">
-  </div>
-  <div class="form-group">
-    <label for="body">Body</label>
-    <textarea id="body"
-        ng-model="editRow.body"></textarea>
-    <p class="help-block">Add the body content here.</p>
-  </div>
-  <button type="submit" class="btn btn-default"
-      ng-click="postsCtrl.addPost()">Add Post</button>
-</form>
+<div ui-view></div>

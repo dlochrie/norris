@@ -1,0 +1,35 @@
+<form role="form" class="form-horizontal">
+  <fieldset>
+    <legend>Fill out the form below to add a Post</legend>
+    <div class="form-group">
+      <label class="control-label col-md-2" for="title">Title</label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" id="title"
+            ng-model="editRow.title"
+            placeholder="Neil Armstrong, We Hardly Knew Ye">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-2" for="category">Category</label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" id="category"
+            ng-model="editRow.category"
+            placeholder="Sports">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-2" for="body">Body</label>
+      <div class="col-md-10">
+        <textarea id="body" class="form-control"
+            ng-model="editRow.body"></textarea>
+        <p class="help-block">Add the body content here.</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <button type="submit" class="btn btn-default"
+            ng-click="postsCtrl.addPost()">Add Post</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
