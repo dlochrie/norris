@@ -42,16 +42,7 @@ norris.posts.PostsController = function($scope, $state, apiProxyService) {
    */
   $scope['posts'] = [];
 
-  // // Get the initial posts.
-  // this.getPosts_();
-
-  // // Set the initial view as the 'show' view.
-  // // TODO(dlochrie): See about contributing to:
-  // // https://github.com/google/closure-compiler/blob/master/contrib/
-  // // externs/angular_ui_router.js
-  // // ...which should help with the propery renaming here...
-  // $state['transitionTo']('posts.show');
-
+  // Initialize defaults.
   this.init_();
 };
 
@@ -77,7 +68,7 @@ norris.posts.PostsController.prototype.init_ = function() {
   // https://github.com/google/closure-compiler/blob/master/contrib/...
   // ...externs/angular_ui_router.js
   // Adding to the extens can help out in the property renaming.
-  this.ij_.state['transitionTo']('posts.show');
+  this.ij_.state.transitionTo('posts.show');
 };
 
 
@@ -116,7 +107,7 @@ norris.posts.PostsController.prototype.addPost = function() {
         // Clear the model so the form will be empty.
         scope['editRow'] = {};
         // Go to the 'show' view.
-        state['transitionTo']('posts.show');
+        state.transitionTo('posts.show');
       }, function() {
         scope['message'] = 'Could not add the post. Please try again.';
       });

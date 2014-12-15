@@ -25,13 +25,13 @@ html(lang='en', ng-app='norris')
 
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
-            li
+            li(ui-sref-active="active")
               a(ui-sref='home') Home
-            li
+            li(ui-sref-active="active")
               a(ui-sref='cats') Cats!
-            li
+            li(ui-sref-active="active")
               a(ui-sref='posts') Posts
-            li
+            li(ui-sref-active="active")
               a(ui-sref='guestbook') Guest Book
 
     .container
@@ -41,15 +41,7 @@ html(lang='en', ng-app='norris')
 
       .row
         .col-md-3
-          ul.nav.nav-stacked.norris-sidebar
-            li
-              a(ui-sref='home') Home
-            li
-              a(ui-sref='cats') Cats!
-            li
-              a(ui-sref='posts') Posts
-            li
-              a(ui-sref='guestbook') Guest Book
+          include common/sidebar
 
         .col-md-9
           block content
