@@ -11,11 +11,33 @@ body {
   color: #898988;
 }
 
-#top-nav.navbar-default .navbar-brand,
-#top-nav.navbar-default .navbar-nav>li>a { color: #898988; }
+#top-nav.navbar-default .navbar-nav>li>a,
+#top-nav.navbar-default .navbar-nav>li>a:hover,
+#top-nav.navbar-default .navbar-nav>li>a:focus,
+#top-nav.navbar-default .navbar-nav>.active>a,
+#top-nav.navbar-default .navbar-nav>.active>a:hover,
+#top-nav.navbar-default .navbar-nav>.active>a:focus {
+  background-color: #BEE8E8;
+  color: #898988;
+}
+
+#top-nav.navbar-default .navbar-nav>.active>a,
+#top-nav.navbar-default .navbar-nav>.active>a:hover,
+#top-nav.navbar-default .navbar-nav>.active>a:focus {
+  font-weight: bold;
+}
 
 
-#top-nav.navbar-default .navbar-brand:hover,
-#top-nav.navbar-default .navbar-nav>li>a:hover { color: #525252; }
+.norris-sidebar.nav>li>a {
+  background-color: transparent;
+  color: #778B8B;
+}
 
-.norris-sidebar li a { color: #778B8B; }
+.norris-sidebar.nav>li>a:hover,
+.norris-sidebar.nav>li>a:focus {
+  text-decoration: none;
+}
+
+.norris-sidebar.nav>li.active>a {
+  font-weight: bold;
+}

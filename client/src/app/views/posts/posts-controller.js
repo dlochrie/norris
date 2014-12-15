@@ -42,16 +42,7 @@ norris.posts.PostsController = function($scope, $state, apiProxyService) {
    */
   $scope['posts'] = [];
 
-  // // Get the initial posts.
-  // this.getPosts_();
-
-  // // Set the initial view as the 'show' view.
-  // // TODO(dlochrie): See about contributing to:
-  // // https://github.com/google/closure-compiler/blob/master/contrib/
-  // // externs/angular_ui_router.js
-  // // ...which should help with the propery renaming here...
-  // $state['transitionTo']('posts.show');
-
+  // Initialize defaults.
   this.init_();
 };
 
