@@ -57,6 +57,7 @@ norris.posts.PostsController.MODULE_NAME_ = 'posts';
 
 /**
  * Initialize the controller.
+ * @private
  */
 norris.posts.PostsController.prototype.init_ = function() {
   // Get the initial posts.
@@ -67,8 +68,8 @@ norris.posts.PostsController.prototype.init_ = function() {
   // https://github.com/google/closure-compiler/blob/master/contrib/...
   // ...externs/angular_ui_router.js
   // Adding to the extens can help out in the property renaming.
-  this.ij_.state['transitionTo']('posts.show');
-}
+  this.ij_.state.transitionTo('posts.show');
+};
 
 
 /**
@@ -106,7 +107,7 @@ norris.posts.PostsController.prototype.addPost = function() {
         // Clear the model so the form will be empty.
         scope['editRow'] = {};
         // Go to the 'show' view.
-        state['transitionTo']('posts.show');
+        state.transitionTo('posts.show');
       }, function() {
         scope['message'] = 'Could not add the post. Please try again.';
       });
