@@ -66,6 +66,7 @@ norris.posts.PostsController.MODULE_NAME_ = 'posts';
 
 /**
  * Initialize the controller.
+ * @private
  */
 norris.posts.PostsController.prototype.init_ = function() {
   // Get the initial posts.
@@ -77,7 +78,7 @@ norris.posts.PostsController.prototype.init_ = function() {
   // ...externs/angular_ui_router.js
   // Adding to the extens can help out in the property renaming.
   this.ij_.state['transitionTo']('posts.show');
-}
+};
 
 
 /**
