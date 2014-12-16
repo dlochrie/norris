@@ -52,7 +52,7 @@ norris.cats.CatsController.prototype.getCats = function() {
  */
 norris.cats.CatsController.prototype.addCat = function() {
   var scope = this.scope_;
-  var model = angular.copy(scope.editCat);
+  var model = angular.copy(scope['editCat']);
   scope.cats.push(model);
   scope.editCat = {name: null, color: null};
 };
