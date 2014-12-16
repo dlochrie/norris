@@ -1,3 +1,5 @@
+goog.require('goog.array');
+
 describe('CatsController', function() {
   var ctrl, scope;
 
@@ -21,7 +23,7 @@ describe('CatsController', function() {
 
     beforeEach(function() {
       cats = ctrl.scope_.cats =
-        angular.copy(norris.cats.CatsController.DEFAULT_CATS_LIST_);
+          angular.copy(norris.cats.CatsController.DEFAULT_CATS_LIST_);
     });
 
     it('should add a cat and clear the editCat model', function() {
@@ -31,19 +33,20 @@ describe('CatsController', function() {
       expect(scope.editCat).toEqual({name: null, color: null});
     });
 
-    it('should NOT add a cat if either the name or color is missing', function() {
-      var testCases = [
-        {name: 'Foo', color: null},
-        {name: null, color: 'Bar'},
-        {name: undefined, color: null}
-      ];
+    it('should NOT add a cat if either the name or color is missing',
+        function() {
+         var testCases = [
+           {name: 'Foo', color: null},
+           {name: null, color: 'Bar'},
+           {name: undefined, color: null}
+         ];
 
-      goog.array.forEach(testCases, function(test) {
-        scope.editCat = test;
-        ctrl.addCat();
-        expect(cats).not.toContain(test);
-      });
-    });
+         goog.array.forEach(testCases, function(test) {
+           scope.editCat = test;
+           ctrl.addCat();
+           expect(cats).not.toContain(test);
+         });
+       });
 
     it('should remove a cat', function() {
       var last = cats.length - 1;

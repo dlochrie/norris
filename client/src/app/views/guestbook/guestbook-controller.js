@@ -34,22 +34,18 @@ norris.guestbook.GuestBookController = function($scope, guestBookService) {
  * @private
  */
 norris.guestbook.GuestBookController.prototype.init_ = function() {
-  var ij = this.ij_,
-      scope = ij.scope,
-      guestbook = ij.guestbook;
-
   // Get the initial guest list.
-  scope['guests'] = this.getGuests();
+  this.updateGuestList();
 };
 
 
 /**
- * Updates the current list of guests.
- * @return {!Array.<!Object>} The current guest list.
+ * Updates the current list of guests from the list in the service.
  * @export
  */
-norris.guestbook.GuestBookController.prototype.getGuests = function() {
-  return this.ij_.guestbook.getGuests();
+norris.guestbook.GuestBookController.prototype.updateGuestList = function() {
+  var scope = this.ij_.scope;
+  scope['guests'] = this.ij_.guestbook.getGuests();
 };
 
 
@@ -60,8 +56,10 @@ norris.guestbook.GuestBookController.prototype.getGuests = function() {
 norris.guestbook.GuestBookController.prototype.addGuest = function() {
   var scope = this.ij_.scope;
   var model = angular.copy(scope['editGuest']);
-  scope['guests'].push(model);
-  scope['editGuest'] = {};
+  if (model && model.name && model.age && model.occupation) {
+    scope['guests'].push(model);
+    scope['editGuest'] = {};
+  }
 };
 
 
@@ -71,6 +69,8 @@ norris.guestbook.GuestBookController.prototype.addGuest = function() {
  * @export
  */
 norris.guestbook.GuestBookController.prototype.removeGuest = function(index) {
-  var scope = this.scope_;
-  goog.array.removeAt(scope['guests'], index);
+  var scope = this.ij_.scope;
+  if (goog.isNumber(index) && !isNaN(index)) {
+    goog.array.removeAt(scope['guests'], index);
+  }
 };
