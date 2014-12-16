@@ -29,7 +29,7 @@ norris.cats.CatsController = function($scope) {
  * @private
  */
 norris.cats.CatsController.prototype.init_ = function() {
-  // Get the initial cats list...
+  // Get the initial cats list.
   this.getCats();
 
   /**
@@ -49,14 +49,16 @@ norris.cats.CatsController.prototype.getCats = function() {
 
 
 /**
- * Adds a new cat.
+ * Adds a new cat if one exists.
  * @export
  */
 norris.cats.CatsController.prototype.addCat = function() {
   var scope = this.scope_;
   var model = angular.copy(scope['editCat']);
-  scope['cats'].push(model);
-  scope['editCat'] = {name: null, color: null};
+  if (model.name && model.color) {
+    scope['cats'].push(model);
+    scope['editCat'] = {name: null, color: null};
+  }
 };
 
 
@@ -66,8 +68,10 @@ norris.cats.CatsController.prototype.addCat = function() {
  * @export
  */
 norris.cats.CatsController.prototype.removeCat = function(index) {
-  var scope = this.scope_;
-  goog.array.removeAt(scope['cats'], index);
+  if (goog.isNumber(index) && !isNaN(index)) {
+    var scope = this.scope_;
+    goog.array.removeAt(scope['cats'], index);
+  }
 };
 
 

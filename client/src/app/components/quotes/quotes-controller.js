@@ -27,15 +27,17 @@ norris.quotes.QuotesController = function($scope) {
 
 
 /**
- * Gets a new randomly selected quote.
+ * Gets a new randomly selected quote. If the new quote is the same as the old
+ * quote, it tries again.
  * @return {string} The new quote.
  * @export
  */
 norris.quotes.QuotesController.prototype.getNewQuote = function() {
+  var current = this.scope_.quote;
   var quotes = norris.quotes.QuotesController.NORRIS_QUOTES_;
   var length = quotes.length;
   var index = goog.math.randomInt(length);
-  return quotes[index];
+  return quotes[index] == current ? getNewQuote : quotes[index];
 };
 
 
