@@ -57,8 +57,8 @@ KarmaConfig.prototype.init_ = function() {
    * @TODO(dlochrie): Should these be defined as constants?
    */
   settings.ngHtml2JsPreprocessor = {
-    stripPrefix: 'src/app/',
-    prependPrefix: 'partials/'
+    stripPrefix: 'client/src/app/',
+    prependPrefix: ''
   };
 
   // Pass the settings configuration to Karma.
@@ -85,7 +85,7 @@ KarmaConfig.prototype.getPreprocessors_ = function() {
  * @const {string}
  * @private
  */
-KarmaConfig.CLOSURE_LIB_PATH_ = 'vendor/closure-library/closure/goog/';
+KarmaConfig.CLOSURE_LIB_PATH_ = 'client/closure-library/closure/goog/';
 
 
 /**
@@ -109,7 +109,7 @@ KarmaConfig.CLOSURE_DEPS_ = KarmaConfig.CLOSURE_LIB_PATH_ + 'deps.js';
  * @const {string}
  * @private
  */
-KarmaConfig.ANGULAR_LIB_PATH_ = 'vendor/angular/';
+KarmaConfig.ANGULAR_LIB_PATH_ = 'public/javascripts/third-party/angular/';
 
 
 /**
@@ -133,7 +133,7 @@ KarmaConfig.ANGULAR_MOCKS_ = KarmaConfig.ANGULAR_LIB_PATH_ + 'angular-mocks.js';
  * @const {string}
  * @private
  */
-KarmaConfig.SOURCE_FILES_PATH_ = 'src/app/**/!(*_test).js';
+KarmaConfig.SOURCE_FILES_PATH_ = 'client/src/app/**/!(*_test).js';
 
 
 /**
@@ -141,7 +141,7 @@ KarmaConfig.SOURCE_FILES_PATH_ = 'src/app/**/!(*_test).js';
  * @const {string}
  * @private
  */
-KarmaConfig.SOURCE_FILES_APP_PATH_ = 'src/app/app.js';
+KarmaConfig.SOURCE_FILES_APP_PATH_ = 'client/src/app/app.js';
 
 
 /**
@@ -149,7 +149,7 @@ KarmaConfig.SOURCE_FILES_APP_PATH_ = 'src/app/app.js';
  * @const {string}
  * @private
  */
-KarmaConfig.SOURCE_FILES_NON_APP_PATH_ = 'src/app/**/!(app).js';
+KarmaConfig.SOURCE_FILES_NON_APP_PATH_ = 'client/src/app/**/!(app).js';
 
 
 /**
@@ -157,7 +157,7 @@ KarmaConfig.SOURCE_FILES_NON_APP_PATH_ = 'src/app/**/!(app).js';
  * @const {string}
  * @private
  */
-KarmaConfig.PARTIALS_PATH_SOURCE_PATH_ = 'src/app/**/*.html';
+KarmaConfig.PARTIALS_PATH_SOURCE_PATH_ = 'client/src/app/**/*.html';
 
 
 /**
@@ -171,6 +171,7 @@ KarmaConfig.FILE_DEPENDENCIES_ = [
   KarmaConfig.CLOSURE_DEPS_,
   KarmaConfig.ANGULAR_MIN_,
   KarmaConfig.ANGULAR_MOCKS_,
+  {pattern: 'generated/template-cache.js'},
   KarmaConfig.SOURCE_FILES_NON_APP_PATH_,
   KarmaConfig.SOURCE_FILES_APP_PATH_,
   {pattern: KarmaConfig.CLOSURE_LIB_PATH_ + '**/*.js', included: false},

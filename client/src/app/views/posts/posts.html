@@ -1,0 +1,16 @@
+<h2>Posts</h2>
+
+<div class="alert alert-info" ng-if="message">
+  <p>{{ message}}</p>
+</div>
+
+<ul class="list-inline">
+  <li>
+    <a ui-sref="posts.show">Show</a>
+  </li>
+  <li>
+    <a ui-sref="posts.add">Add</a>
+  </li>
+</ul>
+
+<div ui-view></div>
