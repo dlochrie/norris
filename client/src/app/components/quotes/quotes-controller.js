@@ -37,7 +37,7 @@ norris.quotes.QuotesController.prototype.getNewQuote = function() {
   var quotes = norris.quotes.QuotesController.NORRIS_QUOTES_;
   var length = quotes.length;
   var index = goog.math.randomInt(length);
-  return quotes[index] == current ? getNewQuote : quotes[index];
+  return quotes[index] == current ? this.getNewQuote : quotes[index];
 };
 
 
