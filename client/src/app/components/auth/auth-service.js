@@ -15,14 +15,6 @@ norris.auth.AuthService = function($cookieStore, $http, $log) {
   $cookieStore.remove('user');
 
   this.roles_ = this.buildRoles_(norris.auth.AuthService.ROLES_);
-
-  this.levels_ = this.buildLevels_(norris.auth.AuthService.LEVELS_,
-      this.roles_);
-
-  this.currentUser_ = {
-    username: '',
-    role: this.roles_.public
-  };
 };
 
 
@@ -50,7 +42,8 @@ norris.auth.AuthService.ROLES_ = ['public', 'user', 'admin'];
 
 
 /**
- * Generate roles
+ * Generates roles.
+ * @param {!Array} roles The roles to build.
  * @private
  * @return {!Object}
  */
@@ -72,6 +65,9 @@ norris.auth.AuthService.prototype.buildRoles_ = function(roles) {
 
 
 /**
+ * Builds levels.
+ * @param {!Array} levels The levels.
+ * @param {!Array} roles The Roles.
  * @private
  * @return {!Object}
  */
