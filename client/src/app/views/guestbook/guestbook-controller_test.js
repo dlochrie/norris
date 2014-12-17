@@ -1,20 +1,19 @@
 goog.require('goog.array');
 
 describe('GuestBookController', function() {
-  var ctrl, scope, defaultGuests;
+  var ctrl, defaultGuests;
 
   beforeEach(module('norris.guestbook'));
 
   beforeEach(inject(function($rootScope, $controller) {
-    scope = $rootScope;
-    ctrl = $controller('GuestBookController', {$scope: scope});
+    ctrl = $controller('GuestBookController', {$scope: $rootScope});
     defaultGuests = angular.copy(
         norris.guestbook.GuestBookService.PREVIOUS_GUESTS_);
   }));
 
   describe('when initializing', function() {
-    it('should initialize the scope and guests', function() {
-      var guests = scope.guests;
+    it('should initialize the controller and guests', function() {
+      var guests = ctrl.guests;
       expect(goog.typeOf(guests)).toBe('array');
       expect(guests).toEqual(defaultGuests);
     });
@@ -25,7 +24,7 @@ describe('GuestBookController', function() {
 
     beforeEach(function() {
       ctrl.updateGuestList();
-      guests = scope.guests;
+      guests = ctrl.guests;
     });
 
     it('should get the guests list', function() {
@@ -35,8 +34,11 @@ describe('GuestBookController', function() {
 
     it('should add a guest', function() {
       // Add a new guest.
-      var guest = scope['editGuest'] =
-          {'name': 'foo', 'age': 100, 'occupation': 'bar'};
+      var guest = ctrl.editGuest = {
+        'name': 'foo',
+        'age': 100,
+        'occupation': 'bar'
+      };
       ctrl.addGuest();
 
       // Assert that the new guest is in the array.
@@ -48,10 +50,10 @@ describe('GuestBookController', function() {
       // Create an array with invalid params.
       var testCases = [null, undefined, 0, 1, true, [], {}, 'string'];
       goog.array.forEach(testCases, function(test) {
-        guest = scope.editGuest = test;
+        guest = ctrl.editGuest = test;
         ctrl.addGuest();
 
-        // Assert that the new guest is NOT in the array.
+        // Assert that the new guest (test) is NOT in the array.
         ctrl.updateGuestList();
         expect(goog.typeOf(guests)).toBe('array');
         expect(guests).toEqual(defaultGuests);

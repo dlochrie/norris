@@ -6,23 +6,25 @@ goog.require('goog.array');
 
 /**
  * GuestBook Controller.
- * @param {!angular.Scope} $scope The current controller $scope.
- * @param {!norris.guestbook.GuestBookController} guestBookService
- *     The Guestbook Service.
+ * @param {!norris.guestbook.GuestBookController} guestBookService The
+ *     Guestbook Service.
  * @constructor
  * @ngInject
  * @export
  */
-norris.guestbook.GuestBookController = function($scope, guestBookService) {
+norris.guestbook.GuestBookController = function(guestBookService) {
   /**
-   * Reference to Injected Services.
-   * @type {!Object.<string, !Object>}
+   * Reference to Injected Guestbook Service.
+   * @type {{norris.guestbook.GuestBookController}
    * @private
    */
-  this.ij_ = {
-    scope: $scope,
-    guestbook: guestBookService
-  };
+  this.guestbook_ = guestBookService;
+
+  /**
+   * Model for adding/editing guests.
+   * @type {{name: string, age: number, occupation: string}}
+   */
+  this['editGuest'] = {};
 
   // Initialize the controller.
   this.init_();
@@ -44,8 +46,7 @@ norris.guestbook.GuestBookController.prototype.init_ = function() {
  * @export
  */
 norris.guestbook.GuestBookController.prototype.updateGuestList = function() {
-  var scope = this.ij_.scope;
-  scope['guests'] = this.ij_.guestbook.getGuests();
+  this['guests'] = this.guestbook_.getGuests();
 };
 
 
@@ -54,11 +55,10 @@ norris.guestbook.GuestBookController.prototype.updateGuestList = function() {
  * @export
  */
 norris.guestbook.GuestBookController.prototype.addGuest = function() {
-  var scope = this.ij_.scope;
-  var model = angular.copy(scope['editGuest']);
-  if (model && model.name && model.age && model.occupation) {
-    scope['guests'].push(model);
-    scope['editGuest'] = {};
+  var model = angular.copy(this['editGuest']);
+  if (model && model['name'] && model['age'] && model['occupation']) {
+    this['guests'].push(model);
+    this['editGuest'] = {};
   }
 };
 
@@ -69,8 +69,7 @@ norris.guestbook.GuestBookController.prototype.addGuest = function() {
  * @export
  */
 norris.guestbook.GuestBookController.prototype.removeGuest = function(index) {
-  var scope = this.ij_.scope;
   if (goog.isNumber(index) && !isNaN(index)) {
-    goog.array.removeAt(scope['guests'], index);
+    goog.array.removeAt(this.guests, index);
   }
 };

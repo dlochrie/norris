@@ -25,16 +25,16 @@
   </thead>
   <tbody>
     <tr class="info">
-      <td><input ng-model="editGuest.name" placeholder="Name"
-          class="form-control"></td>
-      <td><input ng-model="editGuest.age" placeholder="Age"
-          class="form-control"></td>
-      <td><input ng-model="editGuest.occupation" placeholder="Occupation"
-          class="form-control"></td>
+      <td><input ng-model="guestCtrl.editGuest.name" type="text"
+          placeholder="Name" class="form-control"></td>
+      <td><input ng-model="guestCtrl.editGuest.age" type="number"
+          placeholder="Age" class="form-control"></td>
+      <td><input ng-model="guestCtrl.editGuest.occupation" type="text"
+          placeholder="Occupation" class="form-control"></td>
       <td><button class="btn btn-primary" ng-click="guestCtrl.addGuest()"
           >&plus;</button></td>
     </tr>
-    <tr ng-repeat="guest in guests | filter: searchText">
+    <tr ng-repeat="guest in guestCtrl.guests | filter: searchText">
       <td>{{ guest.name }}</td>
       <td>{{ guest.age }}</td>
       <td>{{ guest.occupation }}</td>
