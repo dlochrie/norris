@@ -1,6 +1,5 @@
 goog.provide('norris.app');
 
-goog.require('norris.auth.module');
 goog.require('norris.cats.module');
 goog.require('norris.guestbook.module');
 goog.require('norris.home.module');
@@ -15,7 +14,6 @@ goog.require('norris.templates');
  */
 norris.app.module = angular.module('norris', [
   'ui.router',
-  norris.auth.module.name,
   norris.cats.module.name,
   norris.guestbook.module.name,
   norris.home.module.name,
