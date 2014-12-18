@@ -1,0 +1,17 @@
+table.table.table-striped
+    thead
+        tr
+            th Name
+            th Color
+    tbody
+        tr(ng-repeat="cat in cats")
+            td {{cat.name}}
+            td {{cat.color}}
+pre {{editCat | json}}
+form.form-inline(role="form")
+    .form-group
+        .input-group
+            input.form-control(type="text", name="name", placeHolder="Name", ng-model="editCat.name")
+        .input-group
+            input.form-control(type="text", name="color", placeHolder="Color", ng-model="editCat.color")
+    button.btn.btn-default(type="submit", ng-click="catViewCtrl.addCat()") Add a Cat

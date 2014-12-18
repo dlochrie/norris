@@ -17,11 +17,13 @@ compile_js:
 	--externs client/src/externs/**.js \
 	--js_output_file public/javascripts/application.js \
 	--generate_exports \
+	--language_in=ECMASCRIPT5 \
 	--only_closure_dependencies \
 	--closure_entry_point=norris.app \
 	--compilation_level='ADVANCED_OPTIMIZATIONS' \
 	--output_wrapper='(function(){%output%})();//# sourceMappingURL=application.js.map' \
-	--create_source_map='./public/javascripts/application.js.map'
+	--create_source_map='./public/javascripts/application.js.map' \
+	--warning_level=QUIET
 
 compile_js_debug:
 	java -jar bin/compiler.jar \
@@ -31,12 +33,14 @@ compile_js_debug:
 	--externs client/src/externs/**.js \
 	--js_output_file public/javascripts/application.js \
 	--generate_exports \
+	--language_in=ECMASCRIPT5 \
 	--only_closure_dependencies \
 	--closure_entry_point=norris.app \
 	--compilation_level='ADVANCED_OPTIMIZATIONS' \
 	--output_wrapper='(function(){%output%})();//# sourceMappingURL=application.js.map' \
 	--create_source_map='./public/javascripts/application.js.map' \
-	--formatting PRETTY_PRINT
+	--formatting PRETTY_PRINT \
+	--warning_level=VERBOSE
 
 dependencies:
 	node ./bin/template_cache && make compile_js

@@ -15,59 +15,54 @@ norris.auth.UserService = function($http) {
 
 
 /**
- * Get a user
+ * Gets a user object
  * @param {string} userId
  * @return {!angular.$http.HttpPromise}
  * @export
  */
 norris.auth.UserService.prototype.get = function(userId) {
-  var url = '/api/users/' + userId;
-  return this.http_({url: url, method: 'GET'});
+  return this.http_.get('/api/users/' + userId);
 };
 
 
 /**
- * Get all users
+ * Gets all users
  * @return {!angular.$http.HttpPromise}
  * @export
  */
 norris.auth.UserService.prototype.getAll = function() {
-  var url = '/api/users/';
-  return this.http_({url: url, method: 'GET'});
+  return this.http_.get('/api/users/');
 };
 
 
 /**
- * Create a new user
+ * Creates a new user
  * @param {!Object} user
  * @return {!angular.$http.HttpPromise}
  * @export
  */
 norris.auth.UserService.prototype.create = function(user) {
-  var url = '/api/users/';
-  return this.http_({url: url, method: 'POST'}, user);
+  return this.http_.post('/api/users/', user);
 };
 
 
 /**
- * Update a user
+ * Updates a user
  * @param {!Object} user
  * @return {!angular.$http.HttpPromise}
  * @export
  */
 norris.auth.UserService.prototype.update = function(user) {
-  var url = '/api/users/' + userId;
-  return this.http_({url: url, method: 'PUT'}, user);
+  return this.http_.put('/api/users/' + user.id, user);
 };
 
 
 /**
- * Remove a user
+ * Removes a user
  * @param {string} userId
  * @return {!angular.$http.HttpPromise}
  * @export
  */
 norris.auth.UserService.prototype.remove = function(userId) {
-  var url = '/api/users/' + userId;
-  return this.http_({url: url, method: 'DELETE'});
+  return this.http_.delete('/api/users/' + userId);
 };

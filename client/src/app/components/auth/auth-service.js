@@ -5,152 +5,135 @@ goog.provide('norris.auth.AuthService');
 /**
  * The Auth service.
  * @param {!angular.$cookieStore} $cookieStore The Angular Cookie Store Service.
- * @param {!angular.$http} $http The Angular HTTP Service.
- * @param {!angular.$log} $log The Angular Logging Service.
+ * @param {!Object} sessionService
+ * @param {!Object} userService
+ * @param {!Object.<string,!Object>} ACCESS_LEVELS
+ * @param {!Object.<string,!Object>} ACCESS_ROLES
  * @constructor
  * @ngInject
  * @export
  */
-norris.auth.AuthService = function($cookieStore, $http, $log) {
-  $cookieStore.remove('user');
+norris.auth.AuthService = function($cookieStore, sessionService, userService,
+    ACCESS_LEVELS, ACCESS_ROLES) {
+  /**
+   * Reference to Injected Services.
+   * @type {!Object.<string, !Object>}
+   * @private
+   */
+  this.ij_ = {
+    cookieStore: $cookieStore,
+    sessionService: sessionService,
+    userService: userService,
+    ACCESS_ROLES: ACCESS_ROLES,
+    ACCESS_LEVELS: ACCESS_LEVELS
+  };
 
-  this.roles_ = this.buildRoles_(norris.auth.AuthService.ROLES_);
+  /**
+   * User access levels
+   * @type {!Object.<string, !Object>}
+   */
+  this.levels = ACCESS_LEVELS;
 
-  this.levels_ = this.buildLevels_(norris.auth.AuthService.LEVELS_,
-      this.roles_);
+  /**
+   * User access roles
+   * @type {!Object.<string,!Object>}
+   */
+  this.roles = ACCESS_ROLES;
 
-  this.currentUser_ = {
+
+  /**
+   * Remove the current user cookie
+   */
+  this.ij_.cookieStore.remove('user');
+
+
+  /**
+   * The current user (defaults to empty username with `public` role)
+   * @type {!Object}
+   */
+  this.currentUser = {
     username: '',
-    role: this.roles_.public
+    role: this.roles['public']
   };
 };
 
 
 /**
- * List of access levels.
- * @type {!Object}
- * @private
- * @const
- */
-norris.auth.AuthService.LEVELS_ = {
-  'public' : '*',
-  'anon': ['public'],
-  'user' : ['user', 'admin'],
-  'admin': ['admin']
-};
-
-
-/**
- * List of user roles.
- * @type {!Array.<string>}
- * @private
- * @const
- */
-norris.auth.AuthService.ROLES_ = ['public', 'user', 'admin'];
-
-
-/**
- * Generate roles
- * @private
+ * Updates the current user object
+ * @param {!Object} user
  * @return {!Object}
+ * @private
  */
-norris.auth.AuthService.prototype.buildRoles_ = function(roles) {
-  var bitMask = '01',
-      rolesObj = {},
-      intCode;
-
-  roles.forEach(function(role) {
-    intCode = parseInt(bitMask, 2);
-    rolesObj[role] = {
-      bitMask: intCode,
-      title: role
-    };
-  });
-
-  return rolesObj;
+norris.auth.AuthService.prototype.setCurrentUser_ = function(user) {
+  return angular.extend(this.currentUser, user);
 };
 
 
 /**
- * @private
- * @return {!Object}
+ * Checks to see if the user is authorized for this level.
+ * @param {!Object.<string,number>} level
+ * @param {!Object.<string,(number|number)>} role
+ * @return {boolean} whether or not the user is authorized
+ * @export
  */
-norris.auth.AuthService.prototype.buildLevels_ = function(levels, roles) {
-  var levelsObj = {},
-      level,
-      resultBitMask,
-      role;
-
-  for (level in levels) {
-    if (typeof levels[level] === 'string') {
-      if (levels[level] === '*') {
-        resultBitMask = '';
-
-        for (role in roles) {
-          resultBitMask += '1';
-        }
-
-        levelsObj[level] = {
-          bitMask: parseInt(resultBitMask, 2)
-        };
-      } else {
-        console.log('Access Control Error: Could not parse "' + levels[level] +
-            '" as access definition for level "' + level + '"');
-      }
-    } else {
-      resultBitMask = 0;
-      for (role in levels[level]) {
-        if (userRoles.hasOwnProperty(levels[level][role])) {
-          resultBitMask = resultBitMask |
-              userRoles[levels[level][role]].bitMask;
-        } else {
-          console.log("Error: Could not find role '" + levels[level][role] +
-              "' in registered roles while building access for '" +
-              level + "'");
-        }
-      }
-      levelsObj[level] = {
-        bitMask: resultBitMask
-      };
-    }
-  }
-
-  return levelsObj;
-};
-
-
 norris.auth.AuthService.prototype.authorize = function(level, role) {
   if (role === undefined) {
-    role = currentUser.role;
+    role = this.currentUser.role;
   }
-  return level.bitMask & role.bitMask;
+  return !!(level.bitMask & role.bitMask);
 };
 
+
+/**
+ * Checks to see if a `user` is logged in.
+ * @param {!Object} user
+ * @return {boolean}
+ * @export
+ */
 norris.auth.AuthService.prototype.isLoggedIn = function(user) {
+  var ACCESS_ROLES = this.ij_.ACCESS_ROLES;
   if (user === undefined) {
-    user = currentUser;
+    user = this.currentUser;
   }
-  return user.role.title === this.roles_.user.title ||
-      user.role.title === this.roles_.admin.title;
+  return user.role.title === ACCESS_ROLES.user.title ||
+      user.role.title === ACCESS_ROLES.admin.title;
 };
 
+
+/**
+ * Registers a new user.
+ * @param {!Object} user
+ * @return {!angular.$http.HttpPromise}
+ * @export
+ */
 norris.auth.AuthService.prototype.register = function(user) {
-  $http.post('/register', user).success(function(res) {
-    changeUser(res);
-    success();
-  }).error(error);
+  return this.ij_.userService.create(user).then(this.setCurrentUser_);
 };
 
-norris.auth.AuthService.prototype.login = function(user) {
-  $http.post('/login', user).success(function(user) {
-    changeUser(user);
-    success(user);
-  }).error(error);
+
+/**
+ * Logs a user in.
+ * @param {string} username
+ * @param {string} password
+ * @return {!angular.$http.HttpPromise}
+ * @export
+ */
+norris.auth.AuthService.prototype.login = function(username, password) {
+  return this.ij_.sessionService.get(username, password).then(
+      this.setCurrentUser_);
 };
 
+
+/**
+ * Logs a user out.
+ * @return {!angular.$http.HttpPromise}
+ * @export
+ */
 norris.auth.AuthService.prototype.logout = function() {
-  $http.post('/logout').success(function() {
-    changeUser({username: '', role: ''});
-    success();
-  }).error(error);
+  // get the username for the current user
+  var userId = this.currentUser.id;
+  // send request to remove the user's session
+  return this.ij_.sessionService.remove(userId).then(goog.bind(function() {
+    this.setCurrentUser_({username: '', role: this.roles['public']});
+  }, this));
 };

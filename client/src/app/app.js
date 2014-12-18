@@ -14,6 +14,7 @@ goog.require('norris.templates');
  * the application.
  */
 norris.app.module = angular.module('norris', [
+  'ui.bootstrap',
   'ui.router',
   norris.auth.module.name,
   norris.cats.module.name,
