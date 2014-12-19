@@ -50,11 +50,13 @@ KarmaConfig.prototype.init_ = function() {
   settings.singleRun = false;
 
   /**
-   * NG HTML Preprocessor Settings. Helps to create modules to use in testing. If you are "serving" your partials from
-   * a directory that is different from you "store" them locally, then you might want to change the "stripPrefix" and
-   * "prependPrefix" settings accordingly. For help, see the Karma Debug console in chrome.
+   * TODO(dlochrie): Should these be defined as constants?
+   * NG HTML Preprocessor Settings. Helps to create modules to use in testing.
+   * If you are "serving" your partials from a directory that is different
+   * from you "store" them locally, then you might want to change the
+   * "stripPrefix" and "prependPrefix" settings accordingly. For help, see the
+   * Karma Debug console in chrome.
    * @type {{stripPrefix: string, prependPrefix: string}}
-   * @TODO(dlochrie): Should these be defined as constants?
    */
   settings.ngHtml2JsPreprocessor = {
     stripPrefix: 'client/src/app/',
@@ -67,7 +69,8 @@ KarmaConfig.prototype.init_ = function() {
 
 
 /**
- * Creates and returns an object containing the required preprocessors for this configuration.
+ * Creates and returns an object containing the required preprocessors for this
+ * configuration.
  * @private
  * @return {!Object.<string, string>} The preprocessors object.
  */
@@ -105,11 +108,19 @@ KarmaConfig.CLOSURE_DEPS_ = KarmaConfig.CLOSURE_LIB_PATH_ + 'deps.js';
 
 
 /**
+ * Base Path to the third-party libraries.
+ * @const {string}
+ * @private
+ */
+KarmaConfig.THIRD_PARTY_PATH_ = 'public/javascripts/third-party/';
+
+
+/**
  * Path to the local Angular Library.
  * @const {string}
  * @private
  */
-KarmaConfig.ANGULAR_LIB_PATH_ = 'public/javascripts/third-party/angular/';
+KarmaConfig.ANGULAR_LIB_PATH_ = KarmaConfig.THIRD_PARTY_PATH_ + 'angular/';
 
 
 /**
@@ -126,6 +137,15 @@ KarmaConfig.ANGULAR_MIN_ = KarmaConfig.ANGULAR_LIB_PATH_ + 'angular.min.js';
  * @private
  */
 KarmaConfig.ANGULAR_MOCKS_ = KarmaConfig.ANGULAR_LIB_PATH_ + 'angular-mocks.js';
+
+
+/**
+ * Path to the UI Router. Required for testing.
+ * @const {string}
+ * @private
+ */
+KarmaConfig.UI_ROUTER_ = KarmaConfig.THIRD_PARTY_PATH_ +
+    'ui-router/angular-ui-router.min.js';
 
 
 /**
@@ -153,7 +173,8 @@ KarmaConfig.SOURCE_FILES_NON_APP_PATH_ = 'client/src/app/**/!(app).js';
 
 
 /**
- * Path pattern for partials. This is the SOURCE path, and not the DESTINATION path.
+ * Path pattern for partials. This is the SOURCE path, and not the
+ * DESTINATION path.
  * @const {string}
  * @private
  */
@@ -162,7 +183,8 @@ KarmaConfig.PARTIALS_PATH_SOURCE_PATH_ = 'client/src/app/**/*.html';
 
 /**
  * File dependencies for the Karma Runner.
- * USE CAUTION: The order is extremely important here. Use the Karma Debug option in the browser for troubleshooting.
+ * USE CAUTION: The order is extremely important here. Use the Karma Debug
+ * option in the browser for troubleshooting.
  * @const {Array.<string|Object>}
  * @private
  */
@@ -171,6 +193,7 @@ KarmaConfig.FILE_DEPENDENCIES_ = [
   KarmaConfig.CLOSURE_DEPS_,
   KarmaConfig.ANGULAR_MIN_,
   KarmaConfig.ANGULAR_MOCKS_,
+  KarmaConfig.UI_ROUTER_,
   {pattern: 'generated/template-cache.js'},
   KarmaConfig.SOURCE_FILES_NON_APP_PATH_,
   KarmaConfig.SOURCE_FILES_APP_PATH_,
