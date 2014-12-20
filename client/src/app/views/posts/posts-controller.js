@@ -31,10 +31,10 @@ norris.posts.PostsController = function($scope, $state, apiProxyService) {
   $scope['message'] = null;
 
   /**
-   * Posts form data model
+   * Posts form data model. Starts off empty.
    * @type {!Object.<string, string, string>}
    */
-  $scope['editRow'] = {'title': null, 'postegory': null, 'body': null};
+  $scope['editRow'] = {'title': null, 'category': null, 'body': null};
 
   /**
    * Initialize the Posts' list.
