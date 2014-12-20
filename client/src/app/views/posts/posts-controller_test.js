@@ -1,5 +1,5 @@
 describe('PostsController', function() {
-  var ctrl, scope, httpBackend, stateSpy;
+  var ctrl, scope, httpBackend, apiProxy, q, stateSpy;
 
   beforeEach(module('norris.posts'));
   beforeEach(module('ui.router'));
@@ -7,14 +7,9 @@ describe('PostsController', function() {
   beforeEach(inject(function(
       $rootScope, $controller, $q, $httpBackend, apiProxyService) {
         httpBackend = $httpBackend,
-        scope = $rootScope;
-
-        // Emulate a returned promise in the ApiProxy service.
-        spyOn(apiProxyService, 'add').and.callFake(function() {
-          var deferred = $q.defer();
-          deferred.resolve('Remote call result');
-          return deferred.promise;
-        });
+        scope = $rootScope,
+        apiProxy = apiProxyService,
+        q = $q;
 
         // Create a spy so that we can verify state transitions.
         stateSpy = jasmine.createSpy('state');
@@ -53,11 +48,24 @@ describe('PostsController', function() {
   });
 
   describe('when performing crud', function() {
+    var deferred;
+
+    beforeEach(function() {
+      deferred = q.defer();
+    });
+
     it('should get all posts', function() {
+      // TODO(dlochrie): Pls implement.
       httpBackend.flush();
     });
 
     it('should add a post and clear the editRow object', function() {
+      // Emulate a returned promise in the ApiProxy service.
+      spyOn(apiProxy, 'add').and.callFake(function() {
+        deferred.resolve();
+        return deferred.promise;
+      });
+
       var newRow = scope['editRow'] =
           {'title': 'foo', 'category': 'bar', 'body': 'baz'};
       ctrl.addPost();
@@ -79,6 +87,12 @@ describe('PostsController', function() {
     });
 
     it('should not add a post with invalid or missing params', function() {
+      // Emulate a returned promise in the ApiProxy service.
+      spyOn(apiProxy, 'add').and.callFake(function() {
+        deferred.resolve();
+        return deferred.promise;
+      });
+
       var testCases = [null, undefined, 0, 1, true, false, {}, [],
             {'title': 'foo', 'category': null, 'body': 'baz'}];
 
@@ -100,6 +114,33 @@ describe('PostsController', function() {
         expect(stateSpy).toHaveBeenCalledWith('posts.show');
       });
 
+      httpBackend.flush();
+    });
+
+    it('should display an error when the post fails', function() {
+      // Emulate a promise that fails/rejects the request.
+      spyOn(apiProxy, 'add').and.callFake(function() {
+        deferred.reject();
+        return deferred.promise;
+      });
+
+      var newRow = scope['editRow'] =
+          {'title': 'foo', 'category': 'bar', 'body': 'baz'};
+      ctrl.addPost();
+
+      // Call $apply so that the promises can be resolved.
+      scope.$apply();
+
+      // Assert that an http error updates the message with an error message.
+      expect(scope.posts.length).toBe(0);
+      expect(scope.editRow).toEqual(newRow);
+      expect(scope.message).
+          toEqual('A server error was encountered while adding the post.');
+
+      // Assert that the UI Router navigated to the "show" page.
+      expect(stateSpy).toHaveBeenCalledWith('posts.show');
+
+      // Flush pending requests.
       httpBackend.flush();
     });
   });
