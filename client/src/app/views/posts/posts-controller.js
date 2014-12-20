@@ -99,16 +99,21 @@ norris.posts.PostsController.prototype.addPost = function() {
       state = ij.state;
 
   var post = angular.copy(scope['editRow']);
-  apiProxy.add(norris.posts.PostsController.MODULE_NAME_, post).
-      then(function() {
-        // Add the post to the current array and report the success.
-        scope['message'] = 'Success!';
-        scope['posts'].push(post);
-        // Clear the model so the form will be empty.
-        scope['editRow'] = {};
-        // Go to the 'show' view.
-        state.transitionTo('posts.show');
-      }, function() {
-        scope['message'] = 'Could not add the post. Please try again.';
-      });
+  if (post && post.title && post.category && post.body) {
+    apiProxy.add(norris.posts.PostsController.MODULE_NAME_, post).
+        then(function() {
+          // Add the post to the current array and report the success.
+          scope['message'] = 'Success!';
+          scope['posts'].push(post);
+          // Clear the model so the form will be empty.
+          scope['editRow'] = {};
+          // Go to the 'show' view.
+          state.transitionTo('posts.show');
+        }, function() {
+          scope['message'] =
+              'A server error was encountered while adding the post.';
+        });
+  } else {
+    scope['message'] = 'Some of the fields are invalid are missing.';
+  }
 };

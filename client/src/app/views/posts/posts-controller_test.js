@@ -53,6 +53,10 @@ describe('PostsController', function() {
   });
 
   describe('when performing crud', function() {
+    it('should get all posts', function() {
+      httpBackend.flush();
+    });
+
     it('should add a post and clear the editRow object', function() {
       var newRow = scope['editRow'] =
           {'title': 'foo', 'category': 'bar', 'body': 'baz'};
@@ -65,6 +69,7 @@ describe('PostsController', function() {
       // editRow object is cleared out.
       expect(scope.posts.shift()).toEqual(newRow);
       expect(scope.editRow).toEqual({});
+      expect(scope.message).toEqual('Success!');
 
       // Assert that the UI Router navigated to the "show" page.
       expect(stateSpy).toHaveBeenCalledWith('posts.show');
@@ -74,6 +79,27 @@ describe('PostsController', function() {
     });
 
     it('should not add a post with invalid or missing params', function() {
+      var testCases = [null, undefined, 0, 1, true, false, {}, [],
+            {'title': 'foo', 'category': null, 'body': 'baz'}];
+
+      goog.array.forEach(testCases, function(test) {
+        scope['editRow'] = test;
+        ctrl.addPost();
+
+        // Call $apply so that the promises can be resolved.
+        scope.$apply();
+
+        // Assert that the editRow model was not added, and that a message is
+        // displayed to the user.
+        expect(scope.posts.length).toBe(0);
+        expect(scope.editRow).toEqual(test);
+        expect(scope.message).toEqual(
+            'Some of the fields are invalid are missing.');
+
+        // Assert that the UI Router navigated to the "show" page.
+        expect(stateSpy).toHaveBeenCalledWith('posts.show');
+      });
+
       httpBackend.flush();
     });
   });
