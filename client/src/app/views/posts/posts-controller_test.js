@@ -1,3 +1,6 @@
+goog.require('goog.array');
+
+
 describe('PostsController', function() {
   var ctrl, scope, httpBackend, apiProxy, q, stateSpy;
 
@@ -48,26 +51,67 @@ describe('PostsController', function() {
   });
 
   describe('when performing crud', function() {
-    var deferred;
+    var deferred, mockAddPost, mockGetPosts, newPost, mockResponseObject;
 
     beforeEach(function() {
+      // Create a deferred $q object for emulating promises.
       deferred = q.defer();
+
+      // Provide mock/stubs for the apiProxy "add" and "all" methods.
+      mockAddPost = sinon.stub(apiProxy, 'add');
+      mockGetPosts = sinon.stub(apiProxy, 'all');
+
+      // Emulate a response object.
+      mockResponseObject = [{foo: 'bar'}, {baz: 'qux'}];
+
+      // Create a valid new post.
+      newRow = {title: 'foo', category: 'bar', body: 'baz'};
     });
 
     it('should get all posts', function() {
-      // TODO(dlochrie): Pls implement.
+      // Tell the mock to respond with the mocked data.
+      deferred.resolve({data: mockResponseObject});
+      mockGetPosts.returns(deferred.promise);
+
+      // Assert that there are no posts yet.
+      expect(scope.posts).toEqual([]);
+
+      // Make the request.
+      ctrl.getPosts_();
+      scope.$apply();
+
+      // Assert the posts array is populated.
+      expect(scope.posts).toEqual(mockResponseObject);
+      expect(scope.message).toBe(null);
+      httpBackend.flush();
+    });
+
+    it('should NOT get all posts when there is an error', function() {
+      // Tell the mock to fail with a rejection.
+      deferred.reject();
+      mockGetPosts.returns(deferred.promise);
+
+      // Assert that there are no posts yet.
+      expect(scope.posts).toEqual([]);
+      expect(scope.message).toBe(null);
+
+      // Make the request.
+      ctrl.getPosts_();
+      scope.$apply();
+
+      // Assert the posts array is still empty, and that an error message
+      // is displayed.
+      expect(scope.posts).toEqual([]);
+      expect(scope.message).toBe('There was an error getting the Posts.');
       httpBackend.flush();
     });
 
     it('should add a post and clear the editRow object', function() {
-      // Emulate a returned promise in the ApiProxy service.
-      spyOn(apiProxy, 'add').and.callFake(function() {
-        deferred.resolve();
-        return deferred.promise;
-      });
+      // Fake a successful response.
+      deferred.resolve();
+      mockAddPost.returns(deferred.promise);
 
-      var newRow = scope['editRow'] =
-          {'title': 'foo', 'category': 'bar', 'body': 'baz'};
+      scope['editRow'] = newRow;
       ctrl.addPost();
 
       // Call $apply so that the promises can be resolved.
@@ -87,12 +131,6 @@ describe('PostsController', function() {
     });
 
     it('should not add a post with invalid or missing params', function() {
-      // Emulate a returned promise in the ApiProxy service.
-      spyOn(apiProxy, 'add').and.callFake(function() {
-        deferred.resolve();
-        return deferred.promise;
-      });
-
       var testCases = [null, undefined, 0, 1, true, false, {}, [],
             {'title': 'foo', 'category': null, 'body': 'baz'}];
 
@@ -118,14 +156,11 @@ describe('PostsController', function() {
     });
 
     it('should display an error when the post fails', function() {
-      // Emulate a promise that fails/rejects the request.
-      spyOn(apiProxy, 'add').and.callFake(function() {
-        deferred.reject();
-        return deferred.promise;
-      });
+      // Fake a failed response.
+      deferred.reject();
+      mockAddPost.returns(deferred.promise);
 
-      var newRow = scope['editRow'] =
-          {'title': 'foo', 'category': 'bar', 'body': 'baz'};
+      scope['editRow'] = newRow;
       ctrl.addPost();
 
       // Call $apply so that the promises can be resolved.

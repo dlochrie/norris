@@ -83,7 +83,7 @@ norris.posts.PostsController.prototype.getPosts_ = function() {
       then(function(posts) {
         scope['posts'] = posts.data || [];
       }, function() {
-        scope['message'] = 'There was an error getting Posts.';
+        scope['message'] = 'There was an error getting the Posts.';
       });
 };
 

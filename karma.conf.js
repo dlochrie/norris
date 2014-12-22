@@ -34,7 +34,7 @@ function KarmaConfig(config) {
 KarmaConfig.prototype.init_ = function() {
   var settings = {};
   settings.basePath = '';
-  settings.frameworks = ['jasmine'];
+  settings.frameworks = ['jasmine', 'sinon'];
   settings.files = KarmaConfig.FILE_DEPENDENCIES_;
   settings.preprocessors = this.getPreprocessors_();
   settings.reporters = ['progress', 'coverage'];
