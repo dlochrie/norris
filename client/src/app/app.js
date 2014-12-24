@@ -2,7 +2,6 @@ goog.provide('norris.app');
 
 goog.require('norris.cats.module');
 goog.require('norris.guestbook.module');
-goog.require('norris.home.module');
 goog.require('norris.posts.module');
 goog.require('norris.quotes.module');
 goog.require('norris.templates');
@@ -16,7 +15,6 @@ norris.app.module = angular.module('norris', [
   'ui.router',
   norris.cats.module.name,
   norris.guestbook.module.name,
-  norris.home.module.name,
   norris.posts.module.name,
   norris.quotes.module.name
 ]).config(Router).
@@ -40,9 +38,7 @@ function Router($stateProvider, $urlRouterProvider) {
   $stateProvider.
       state('home', {
         url: '/',
-        templateUrl: 'views/home/home.html',
-        controller: 'HomeController',
-        controllerAs: 'homeCtrl'
+        templateUrl: 'views/home/home.html'
       }).
       state('cats', {
         url: '/cats',
