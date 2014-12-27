@@ -15,7 +15,7 @@ describe('PostsController', function() {
         q = $q;
 
         // Create a spy so that we can verify state transitions.
-        stateSpy = jasmine.createSpy('state');
+        stateSpy = sinon.spy();
         var mockStateService = {
           transitionTo: stateSpy
         };
@@ -43,7 +43,7 @@ describe('PostsController', function() {
           {'title': null, 'category': null, 'body': null});
 
       // Assert that the UI Router navigated to the "show" page.
-      expect(stateSpy).toHaveBeenCalledWith('posts.show');
+      expect(stateSpy.calledWith('posts.show')).toBe(true);
 
       // Flush pending requests.
       httpBackend.flush();
@@ -124,7 +124,7 @@ describe('PostsController', function() {
       expect(scope.message).toEqual('Success!');
 
       // Assert that the UI Router navigated to the "show" page.
-      expect(stateSpy).toHaveBeenCalledWith('posts.show');
+      expect(stateSpy.calledWith('posts.show')).toBe(true);
 
       // Flush pending requests.
       httpBackend.flush();
@@ -149,7 +149,7 @@ describe('PostsController', function() {
             'Some of the fields are invalid are missing.');
 
         // Assert that the UI Router navigated to the "show" page.
-        expect(stateSpy).toHaveBeenCalledWith('posts.show');
+        expect(stateSpy.calledWith('posts.show')).toBe(true);
       });
 
       httpBackend.flush();
@@ -173,7 +173,7 @@ describe('PostsController', function() {
           toEqual('A server error was encountered while adding the post.');
 
       // Assert that the UI Router navigated to the "show" page.
-      expect(stateSpy).toHaveBeenCalledWith('posts.show');
+      expect(stateSpy.calledWith('posts.show')).toBe(true);
 
       // Flush pending requests.
       httpBackend.flush();
