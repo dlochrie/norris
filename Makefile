@@ -9,6 +9,9 @@ test:
 test_all_unit:
 	./node_modules/karma/bin/karma start
 
+test_all_e2e:
+	./node_modules/protractor/bin/protractor e2e/protractor.conf.js
+
 compile_js:
 	java -jar bin/compiler.jar \
 	'client/src/app/**.js' 'generated/template-cache.js' \
