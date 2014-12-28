@@ -1,10 +1,22 @@
-module.exports = new function() {
+/**
+ * Exposes the Cats Page.
+ * @type {Cats}
+ */
+module.exports = new Cats;
+
+
+
+/**
+ * Constructor for the Cats Page.
+ * @constructor
+ */
+function Cats() {
   /**
    * Navigates to the Cats Page.
    */
   this.navigate = function() {
     browser.get('http://localhost:3000/#cats');
-  }
+  };
 
   /**
    * Returns a promise resolving to all the cats rows.
@@ -12,7 +24,7 @@ module.exports = new function() {
    */
   this.getCatRows = function() {
     return element.all(by.repeater('cat in cats'));
-  }
+  };
 
   /**
    * H2 Header element at the top.
