@@ -165,6 +165,14 @@ KarmaConfig.SOURCE_FILES_APP_PATH_ = 'client/src/app/app.js';
 
 
 /**
+ * Path to the Angular application main app test file.
+ * @const {string}
+ * @private
+ */
+KarmaConfig.SOURCE_FILES_APP_TEST_ = 'client/src/app/app_test.js';
+
+
+/**
  * Path pattern the files that are not the application main path.
  * @const {string}
  * @private
@@ -197,6 +205,7 @@ KarmaConfig.FILE_DEPENDENCIES_ = [
   {pattern: 'generated/template-cache.js'},
   KarmaConfig.SOURCE_FILES_NON_APP_PATH_,
   KarmaConfig.SOURCE_FILES_APP_PATH_,
+  KarmaConfig.SOURCE_FILES_APP_TEST_,
   {pattern: KarmaConfig.CLOSURE_LIB_PATH_ + '**/*.js', included: false},
   KarmaConfig.PARTIALS_PATH_SOURCE_PATH_
 ];

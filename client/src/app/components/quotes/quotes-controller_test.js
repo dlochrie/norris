@@ -24,6 +24,31 @@ describe('QuotesController', function() {
     expect(goog.array.contains((quoteList, quote)));
   });
 
+  it('should always return a different quote than the previous one',
+     function() {
+       var original = angular.copy(
+       norris.quotes.QuotesController.NORRIS_QUOTES_);
+       norris.quotes.QuotesController.NORRIS_QUOTES_ = ['Test 1', 'Test 2'];
+
+       // To test for recursion, which might not happen every time, we attempt
+       // a couple iterations until recursion is detected through the Sinon spy.
+       var recursive = false;
+       while (recursive === false) {
+         sinon.spy(ctrl, 'getNewQuote');
+         scope.quote = norris.quotes.QuotesController.NORRIS_QUOTES_[0];
+         ctrl.getNewQuote();
+         if (ctrl.getNewQuote.callCount > 1) {
+           recursive = true;
+         }
+
+         // Restore the method, release the spy for the next iteration.
+         ctrl.getNewQuote.restore();
+       }
+
+       // Restore the original quotes list.
+       norris.quotes.QuotesController.NORRIS_QUOTES_ = original;
+     });
+
   it('should update the current quote', function() {
     ctrl.updateQuote();
     var currentQuote = ctrl.scope_.quote;
