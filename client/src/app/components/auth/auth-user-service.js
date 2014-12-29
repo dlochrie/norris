@@ -10,6 +10,12 @@ goog.provide('norris.auth.UserService');
  * @export
  */
 norris.auth.UserService = function($http) {
+
+  /**
+   *
+   * @type {!angular.$http}
+   * @private
+   */
   this.http_ = $http;
 };
 
@@ -31,7 +37,7 @@ norris.auth.UserService.prototype.get = function(userId) {
  * @export
  */
 norris.auth.UserService.prototype.getAll = function() {
-  return this.http_.get('/api/users/');
+  return this.http_.get('/api/users');
 };
 
 
@@ -42,7 +48,7 @@ norris.auth.UserService.prototype.getAll = function() {
  * @export
  */
 norris.auth.UserService.prototype.create = function(user) {
-  return this.http_.post('/api/users/', user);
+  return this.http_.post('/api/users', user);
 };
 
 

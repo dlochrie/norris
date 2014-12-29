@@ -7,6 +7,7 @@ goog.require('norris.auth.SessionService');
 goog.require('norris.auth.UserService');
 
 
+
 /**
  * The authentication module definition.
  * @return {!angular.Module}
@@ -23,11 +24,14 @@ norris.auth.module = angular.module('norris.auth', ['ngCookies']).
 /**
  *
  * @param {!norris.auth.AuthService} authService
+ * @param {!norris.auth.SessionService} sessionService
  * @param {!Object} ACCESS_LEVELS
  * @param {!Object} ACCESS_ROLES
  * @ngInject
  */
-norris.auth.test = function(authService, ACCESS_LEVELS, ACCESS_ROLES) {
+norris.auth.test = function(authService, sessionService, ACCESS_LEVELS, ACCESS_ROLES) {
+  sessionService.get('Brian', 'abc123');
+  console.log(authService.currentUser);
   console.log('authorized', authService.authorize(ACCESS_LEVELS['admin'],
       ACCESS_ROLES['public']));
 };

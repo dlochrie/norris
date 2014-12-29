@@ -23,13 +23,16 @@
  */
 
 /**
- * @const
+ * Suppresses the compiler warning when multiple externs files declare the
+ * ui namespace.
  * @suppress {duplicate}
+ * @noalias
  */
 var ui = {};
 
 
 /**
+ * @type {Object}
  * @const
  */
 ui.router = {};
@@ -54,88 +57,13 @@ ui.router.$state;
 
 
 /**
- * @typedef {ui.router.State}
- */
-ui.router.$state.current;
-
-
-/**
- * @typedef {Object}
- */
-ui.router.$state.params;
-
-
-/**
- * @typedef {?angular.$q.Promise}
- */
-ui.router.$state.transition;
-
-
-/**
- * @param {string|Object=} stateOrName
- * @param {string|Object=} context
- * @return {Object|Array}
- */
-ui.router.$state.get = function(stateOrName, context) {};
-
-
-/**
- * @param {string} to
- * @param {Object=} params
- * @param {Object=} options
- * @returns {!angular.$q.Promise}
- */
-ui.router.$state.go = function(to, params, options) {};
-
-
-/**
- * @param {string|Object} stateOrName
- * @param {Object=} params
- * @param {Object=} options
- * @returns {string} compiled state url
- */
-ui.router.$state.href = function(stateOrName, params, options) {};
-
-
-/**
- * @param {string} stateOrName
- * @param {Object=} params
- * @param {Object=} options
- */
-ui.router.$state.includes = function(stateOrName, params, options) {};
-
-
-/**
- * @param {string|Object} stateOrName
- * @param {Object=} params
- * @param {Object=} options
- * @returns {boolean}
- */
-ui.router.$state.is = function(stateOrName, params, options) {};
-
-
-/**
- * @returns {!angular.$q.Promise}
- */
-ui.router.$state.reload = function() {};
-
-
-/**
- * @param {string} to
- * @param {Object=} toParams
- * @param {Object=} options
- */
-ui.router.$state.transitionTo = function(to, toParams, options) {};
-
-
-/**
  * @typedef {Object.<string, string>}
  */
 ui.router.$stateParams;
 
 
 /**
- * This is the Object that the ui-router passes to callback functions listening
+ * This is the object that the ui-router passes to callback functions listening
  * on ui router events such as {@code $stateChangeStart} or
  * {@code $stateChangeError} as the {@code toState} and {@code fromState}.
  * Example:
@@ -143,7 +71,7 @@ ui.router.$stateParams;
  *     event, toState, toParams, fromState, fromParams){ ... });
  *
  * @typedef {{
- *     abstract: (boolean|undefined),
+ *     'abstract': (boolean|undefined),
  *     controller: (string|Function|undefined),
  *     controllerAs: (string|undefined),
  *     controllerProvider: (Function|undefined),
@@ -203,7 +131,7 @@ ui.router.$urlRouterProvider.prototype.rule = function(rule) {};
  * @param {!angular.$locationProvider} $locationProvider
  */
 ui.router.$stateProvider = function(
-    $urlRouterProvider, $urlMatcherFactory, $locationProvider) {};
+  $urlRouterProvider, $urlMatcherFactory, $locationProvider) {};
 
 
 /**
@@ -211,4 +139,5 @@ ui.router.$stateProvider = function(
  * @param {Object} definition
  * @return {!ui.router.$stateProvider}
  */
-ui.router.$stateProvider.prototype.state = function(name, definition) {};
+ui.router.$stateProvider.prototype.state = function(
+  name, definition) {};

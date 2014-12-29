@@ -36,7 +36,7 @@ norris.auth.AuthService = function($cookieStore, sessionService, userService,
 
   /**
    * User access roles
-   * @type {!Object.<string,!Object>}
+   * @type {!Object.<string, !Object>}
    */
   this.roles = ACCESS_ROLES;
 
@@ -48,11 +48,12 @@ norris.auth.AuthService = function($cookieStore, sessionService, userService,
 
 
   /**
-   * The current user (defaults to empty username with `public` role)
+   * The current user (defaults to empty email with `public` role)
    * @type {!Object}
    */
   this.currentUser = {
-    username: '',
+    id: undefined,
+    email: '',
     role: this.roles['public']
   };
 };
@@ -71,8 +72,8 @@ norris.auth.AuthService.prototype.setCurrentUser_ = function(user) {
 
 /**
  * Checks to see if the user is authorized for this level.
- * @param {!Object.<string,number>} level
- * @param {!Object.<string,(number|number)>} role
+ * @param {!Object} level
+ * @param {!Object} role
  * @return {boolean} whether or not the user is authorized
  * @export
  */
@@ -113,13 +114,13 @@ norris.auth.AuthService.prototype.register = function(user) {
 
 /**
  * Logs a user in.
- * @param {string} username
+ * @param {string} email
  * @param {string} password
  * @return {!angular.$http.HttpPromise}
  * @export
  */
-norris.auth.AuthService.prototype.login = function(username, password) {
-  return this.ij_.sessionService.get(username, password).then(
+norris.auth.AuthService.prototype.login = function(email, password) {
+  return this.ij_.sessionService.get(email, password).then(
       this.setCurrentUser_);
 };
 
@@ -130,10 +131,12 @@ norris.auth.AuthService.prototype.login = function(username, password) {
  * @export
  */
 norris.auth.AuthService.prototype.logout = function() {
-  // get the username for the current user
+  var currentUser = this.currentUser;
+  // get the id for the current user
   var userId = this.currentUser.id;
   // send request to remove the user's session
   return this.ij_.sessionService.remove(userId).then(goog.bind(function() {
-    this.setCurrentUser_({username: '', role: this.roles['public']});
+    this.setCurrentUser_({id: undefined, email: '', role: this.roles['public']});
+    delete this.currentUser.id;
   }, this));
 };

@@ -22,11 +22,15 @@
  * @externs
  */
 
+
 /**
- * @const
+ * Suppresses the compiler warning when multiple externs files declare the
+ * ui namespace.
  * @suppress {duplicate}
+ * @noalias
  */
 var ui = {};
+
 
 /**
  * @const
@@ -37,12 +41,14 @@ ui.bootstrap = {};
  * $transition Service
  *****************************************************************************/
 
+
 /**
  * @typedef {function(!angular.JQLite, !(string|Object|Function),
  *     Object=):!angular.$q.Promise
- *   }
+ *     }
  */
 ui.bootstrap.$transition;
+
 
 /**
  * Augment the ui.bootstrap.$transition type definition by reopening the type
@@ -55,19 +61,22 @@ ui.bootstrap.$transition;
  */
 ui.bootstrap.$transition_;
 
+
 /**
- * @type (string)
+ * @type {(string|undefined)}
  */
 ui.bootstrap.$transition_.animationEndEventName;
 
+
 /**
- * @type (string)
+ * @type {(string|undefined)}
  */
 ui.bootstrap.$transition_.transitionEndEventName;
 
 /******************************************************************************
  * $modal service
  *****************************************************************************/
+
 
 /**
  * @typedef {{
@@ -79,79 +88,197 @@ ui.bootstrap.$transition_.transitionEndEventName;
  */
 ui.bootstrap.modalInstance;
 
-/** @type function(*=) */
-ui.bootstrap.modalInstance.close;
 
-/** @type function(*=) */
-ui.bootstrap.modalInstance.dismiss;
+/**
+ * @param {*=} opt_result
+ */
+ui.bootstrap.modalInstance.close = function(opt_result) {};
 
-/** @type {!angular.$q.Promise} */
+
+/**
+ * @param {*=} opt_reason
+ */
+ui.bootstrap.modalInstance.dismiss = function(opt_reason) {};
+
+
+/**
+ * @type {!angular.$q.Promise}
+ */
 ui.bootstrap.modalInstance.opened;
 
-/** @type {!angular.$q.Promise} */
+
+/**
+ * @type {!angular.$q.Promise}
+ */
 ui.bootstrap.modalInstance.result;
+
 
 /**
  * @typedef {{
- *   open: function(!Object):!ui.bootstrap.modalInstance
+ *   open: function(!Object)
  * }}
  */
 ui.bootstrap.$modal;
+
+
+/**
+ * @param {!Object} modalOptions
+ * @return {!ui.bootstrap.modalInstance}
+ */
+ui.bootstrap.$modal.open = function(modalOptions) {};
+
+/******************************************************************************
+ * $modalStack service
+ *****************************************************************************/
+
+
+/**
+ * @typedef {{
+ *   open: function(!Object, !Object),
+ *   close: function(!Object, *=),
+ *   dismiss: function(!Object, *=),
+ *   dismissAll: function(*=),
+ *   getTop: function()
+ * }}
+ */
+ui.bootstrap.$modalStack;
+
+
+/**
+ * @param {!Object} modalInstance
+ * @param {!Object} modal
+ */
+ui.bootstrap.$modalStack.open = function(modalInstance, modal) {};
+
+
+/**
+ * @param {!Object} modalInstance
+ * @param {*=} opt_result
+ */
+ui.bootstrap.$modalStack.close = function(modalInstance, opt_result) {};
+
+
+/**
+ * @param {!Object} modalInstance
+ * @param {*=} opt_reason
+ */
+ui.bootstrap.$modalStack.dismiss = function(modalInstance, opt_reason) {};
+
+
+/**
+ * @param {*=} opt_reason
+ */
+ui.bootstrap.$modalStack.dismissAll = function(opt_reason) {};
+
+
+/**
+ * @return {!ui.bootstrap.modalInstance}
+ */
+ui.bootstrap.$modalStack.getTop = function() {};
+
+
+
+/******************************************************************************
+ * $position service
+ *****************************************************************************/
+
+
+/**
+ * @typedef {{
+ *   position: function(!angular.JQLite),
+ *   offset: function(!angular.JQLite),
+ *   positionElements: function(!angular.JQLite, !angular.JQLite, string,
+ *     (boolean|undefined))
+ *   }}
+ */
+ui.bootstrap.$position;
+
+
+/**
+ * @param {!angular.JQLite} element
+ * @return {{width:number, height:number, top:number, left:number}}
+ */
+ui.bootstrap.$position.position = function(element) {};
+
+
+/**
+ * @param {!angular.JQLite} element
+ * @return {{width:number, height:number, top:number, left:number}}
+ */
+ui.bootstrap.$position.offset = function(element) {};
+
+
+/**
+ * @param {!angular.JQLite} hostEl
+ * @param {!angular.JQLite} targetEl
+ * @param {string} positionStr
+ * @param {boolean=} opt_appendToBody
+ * @return {{width:number, height:number, top:number, left:number}}
+ */
+ui.bootstrap.$position.positionElements = function(hostEl, targetEl,
+                                                   positionStr, opt_appendToBody) {};
+
 
 /******************************************************************************
  * Tooltip
  *****************************************************************************/
 
+
 /**
  * @typedef {{
- *   compile: (function(!angular.JQLite=, !angular.Attributes=,
- *       Function=)|undefined),
+ *   compile: (function(!angular.JQLite=, !angular.Attributes=)|undefined),
  *   restrict: (string|undefined)
  *   }}
  */
 ui.bootstrap.Tooltip;
 
-/** @type {function(!angular.JQLite=, !angular.Attributes=, Function=)} */
-ui.bootstrap.Tooltip.compile;
 
-/** @type {string} */
+/**
+ * @param {!angular.JQLite=} opt_element
+ * @param {!angular.Attributes=} opt_attrs
+ */
+ui.bootstrap.Tooltip.compile = function(opt_element, opt_attrs) {};
+
+
+/**
+ * @type {(string|undefined)}
+ */
 ui.bootstrap.Tooltip.restrict;
 
 /******************************************************************************
  * $tooltip service
  *****************************************************************************/
 
+
 /**
- * @typedef {function(string, string, string=):!ui.bootstrap.Tooltip}
+ * @param {string} type
+ * @param {string} prefix
+ * @param {string} defaultTriggerShow
+ * @return {!ui.bootstrap.Tooltip}
  */
-ui.bootstrap.$tooltip;
+ui.bootstrap.$tooltip = function(type, prefix, defaultTriggerShow) {};
 
 /******************************************************************************
  * $tooltipProvider service
  *****************************************************************************/
 
-/**
- * @typedef {{ animation:(boolean|undefined), appendToBody:(boolean|undefined),
- *   placement:(string|undefined), popupDelay:(number|undefined)}}
- */
-ui.bootstrap.tooltipOptions;
 
 /**
  * @typedef {{
- *   options: function(!ui.bootstrap.tooltipOptions=):!ui.bootstrap.tooltipOptions,
- *   setTriggers: function(!Object.<string,string>):!Object.<string, string>
+ *   options: function(!Object.<string,(boolean|number|string)>=),
+ *   setTriggers: function(!Object.<string,string>)
  *   }}
  */
 ui.bootstrap.$tooltipProvider;
 
+
 /**
- * @param {!Object.<string,(boolean|number|string)>=} options
- * @return {!ui.bootstrap.tooltipOptions}
+ * @param {!Object.<string,(boolean|number|string)>=} opt_options
  */
-ui.bootstrap.$tooltipProvider.options = function(options) {};
+ui.bootstrap.$tooltipProvider.options = function(opt_options) {};
+
 
 /**
  * @param {!Object.<string, string>} triggers
- * @return {!Object.<string, string>}
  */
 ui.bootstrap.$tooltipProvider.setTriggers = function(triggers) {};
