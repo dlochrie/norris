@@ -17,7 +17,7 @@ norris.app.module = angular.module('norris', [
   norris.guestbook.module.name,
   norris.posts.module.name,
   norris.quotes.module.name
-]).config(Router).
+]).config(norris.app.config).
     run(norris.templates);
 
 
@@ -27,11 +27,9 @@ norris.app.module = angular.module('norris', [
  * @param {!ui.router.$stateProvider} $stateProvider The $stateProvider service.
  * @param {!ui.router.$urlRouterProvider} $urlRouterProvider The
  *     $urlRouterProvider service.
- * @constructor
  * @ngInject
- * @export
  */
-function Router($stateProvider, $urlRouterProvider) {
+norris.app.config = function ($stateProvider, $urlRouterProvider) {
   // Set the default redirect for any missing route.
   $urlRouterProvider.otherwise('/');
 
@@ -64,4 +62,4 @@ function Router($stateProvider, $urlRouterProvider) {
       state('posts.add', {
         templateUrl: 'views/posts/partials/add.html'
       });
-}
+};
