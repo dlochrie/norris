@@ -28,19 +28,19 @@ norris.posts.PostsController = function($scope, $state, apiProxyService) {
    * Message to display after requests.
    * @type {string}
    */
-  $scope['message'] = null;
+  $scope.message = null;
 
   /**
    * Posts form data model. Starts off empty.
    * @type {!Object.<string, string, string>}
    */
-  $scope['editRow'] = {'title': null, 'category': null, 'body': null};
+  $scope.editRow = {'title': null, 'category': null, 'body': null};
 
   /**
    * Initialize the Posts' list.
    * @type {!Array}
    */
-  $scope['posts'] = [];
+  $scope.posts = [];
 
   // Initialize defaults.
   this.init_();
@@ -81,9 +81,9 @@ norris.posts.PostsController.prototype.getPosts_ = function() {
 
   this.ij_.apiProxy.all(norris.posts.PostsController.MODULE_NAME_).
       then(function(posts) {
-        scope['posts'] = posts.data || [];
+        scope.posts = posts.data || [];
       }, function() {
-        scope['message'] = 'There was an error getting the Posts.';
+        scope.message = 'There was an error getting the Posts.';
       });
 };
 
@@ -98,22 +98,22 @@ norris.posts.PostsController.prototype.addPost = function() {
       scope = ij.scope,
       state = ij.state;
 
-  var post = angular.copy(scope['editRow']);
+  var post = angular.copy(scope.editRow);
   if (post && post.title && post.category && post.body) {
     apiProxy.add(norris.posts.PostsController.MODULE_NAME_, post).
         then(function() {
           // Add the post to the current array and report the success.
-          scope['message'] = 'Success!';
-          scope['posts'].push(post);
+          scope.message = 'Success!';
+          scope.posts.push(post);
           // Clear the model so the form will be empty.
-          scope['editRow'] = {};
+          scope.editRow = {};
           // Go to the 'show' view.
           state.transitionTo('posts.show');
         }, function() {
-          scope['message'] =
+          scope.message =
               'A server error was encountered while adding the post.';
         });
   } else {
-    scope['message'] = 'Some of the fields are invalid are missing.';
+    scope.message = 'Some of the fields are invalid are missing.';
   }
 };

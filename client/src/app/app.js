@@ -21,7 +21,6 @@ norris.app.module = angular.module('norris', [
     run(norris.templates);
 
 
-
 /**
  * Router for the application.
  * @param {!ui.router.$stateProvider} $stateProvider The $stateProvider service.
@@ -29,7 +28,7 @@ norris.app.module = angular.module('norris', [
  *     $urlRouterProvider service.
  * @ngInject
  */
-norris.app.config = function ($stateProvider, $urlRouterProvider) {
+norris.app.config = function($stateProvider, $urlRouterProvider) {
   // Set the default redirect for any missing route.
   $urlRouterProvider.otherwise('/');
 

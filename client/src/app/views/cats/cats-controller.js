@@ -35,7 +35,7 @@ norris.cats.CatsController.prototype.init_ = function() {
   /**
    * Initialize the form with an empty cat object.
    */
-  this.scope_['editCat'] = {name: null, color: null};
+  this.scope_.editCat = {name: null, color: null};
 };
 
 
@@ -44,7 +44,7 @@ norris.cats.CatsController.prototype.init_ = function() {
  * @export
  */
 norris.cats.CatsController.prototype.getCats = function() {
-  this.scope_['cats'] = norris.cats.CatsController.DEFAULT_CATS_LIST_;
+  this.scope_.cats = norris.cats.CatsController.DEFAULT_CATS_LIST_;
 };
 
 
@@ -54,10 +54,10 @@ norris.cats.CatsController.prototype.getCats = function() {
  */
 norris.cats.CatsController.prototype.addCat = function() {
   var scope = this.scope_;
-  var model = angular.copy(scope['editCat']);
+  var model = angular.copy(scope.editCat);
   if (model.name && model.color) {
-    scope['cats'].push(model);
-    scope['editCat'] = {name: null, color: null};
+    scope.cats.push(model);
+    scope.editCat = {name: null, color: null};
   }
 };
 
@@ -70,7 +70,7 @@ norris.cats.CatsController.prototype.addCat = function() {
 norris.cats.CatsController.prototype.removeCat = function(index) {
   if (goog.isNumber(index) && !isNaN(index)) {
     var scope = this.scope_;
-    goog.array.removeAt(scope['cats'], index);
+    goog.array.removeAt(scope.cats, index);
   }
 };
 

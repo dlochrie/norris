@@ -24,7 +24,7 @@ norris.guestbook.GuestBookController = function(guestBookService) {
    * Model for adding/editing guests.
    * @type {{name: string, age: number, occupation: string}}
    */
-  this['editGuest'] = {};
+  this.editGuest = {};
 
   // Initialize the controller.
   this.init_();
@@ -46,7 +46,7 @@ norris.guestbook.GuestBookController.prototype.init_ = function() {
  * @export
  */
 norris.guestbook.GuestBookController.prototype.updateGuestList = function() {
-  this['guests'] = this.guestbook_.getGuests();
+  this.guests = this.guestbook_.getGuests();
 };
 
 
@@ -55,10 +55,10 @@ norris.guestbook.GuestBookController.prototype.updateGuestList = function() {
  * @export
  */
 norris.guestbook.GuestBookController.prototype.addGuest = function() {
-  var model = angular.copy(this['editGuest']);
-  if (model && model['name'] && model['age'] && model['occupation']) {
-    this['guests'].push(model);
-    this['editGuest'] = {};
+  var model = angular.copy(this.editGuest);
+  if (model && model.name && model.age && model.occupation) {
+    this.guests.push(model);
+    this.editGuest = {};
   }
 };
 
