@@ -7,7 +7,7 @@ This project aims to provide a baseline example of how to use AngularJS with the
 
 It is a work in progress.
 
-## Features:  
+## Features:
 
  * Angular Components (controllers, directives, services, etc) that (1) are optimized for the Closure Compiler, and (2) adhere as closely as possible to the [Angular Style Guide](http://google-styleguide.googlecode.com/svn/trunk/angularjs-google-style.html), and the [JavaScript Style Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
  * Compiled JS with strongly typed properties for performance and accuracy.
@@ -75,3 +75,12 @@ Build Prerequisites (this is done when you `make dependencies`):
     npm run-script template-cache
 
 ...More to come.
+
+## Troubleshooting
+
+If you are getting an error like the following:
+
+    Exception in thread "main" java.lang.UnsupportedClassVersionError: com/google/javascript/jscomp/CommandLineRunner : Unsupported major.minor version 51.0
+
+...then you are probably on a Mac, and your Java version is outdated. Please download and install the latest Mac OSX x64 Java SDK [here](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html).
+
