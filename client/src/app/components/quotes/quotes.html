@@ -1,8 +1,17 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <h3>Random Chuck Norris Quote</h3>
-    <p class="lead">{{ quote }}</p>
-    <button class="btn btn-default"
+    <div class="row">
+      <div class="col-md-2">
+        <button class="btn btn-default"
             ng-click="quotesCtrl.updateQuote()">Get New Quote!</button>
+      </div>
+      <div class="col-md-10">
+        <blockquote>
+          <p>{{ quote }}</p>
+          <footer>Anonymous</footer>
+        </blockquote>
+      </div>
+    </div>
   </div>
 </div>

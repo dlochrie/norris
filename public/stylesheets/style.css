@@ -7,8 +7,8 @@ body {
 }
 
 #top-nav.navbar-default {
-  background-color: #BEE8E8;
-  color: #898988;
+  background-color: #DD2C00;
+  color: #FBE9E7;
 }
 
 #top-nav.navbar-default .navbar-nav>li>a,
@@ -16,9 +16,10 @@ body {
 #top-nav.navbar-default .navbar-nav>li>a:focus,
 #top-nav.navbar-default .navbar-nav>.active>a,
 #top-nav.navbar-default .navbar-nav>.active>a:hover,
-#top-nav.navbar-default .navbar-nav>.active>a:focus {
-  background-color: #BEE8E8;
-  color: #898988;
+#top-nav.navbar-default .navbar-nav>.active>a:focus,
+#top-nav.navbar-default .navbar-brand {
+  background-color: #DD2C00;
+  color: #FBE9E7;
 }
 
 #top-nav.navbar-default .navbar-nav>.active>a,
