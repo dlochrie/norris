@@ -33,5 +33,5 @@ node_modules
 public/javascripts/application.js
 public/javascripts/application.js.map
 
-# Directed for generated code (currently just template-cache.js)
+# Directories for generated code (currently just template-cache.js)
 generated
