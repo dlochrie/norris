@@ -14,7 +14,7 @@ test_all_e2e:
 
 compile_js:
 	java -jar bin/compiler.jar \
-	'client/src/app/**.js' 'generated/template-cache.js' \
+  'client/src/app/**.js' 'client/template-cache/generated/template-cache.js' \
 	'!**_test.js' 'client/closure-library/' \
 	--angular_pass \
 	--externs client/src/externs/**.js \
@@ -42,7 +42,7 @@ compile_js_debug:
 	--formatting PRETTY_PRINT
 
 dependencies:
-	node ./bin/template_cache && make compile_js
+	node ./bin/template-cache-generator.js && make compile_js
 
 gjslint:
 	gjslint \
