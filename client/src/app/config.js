@@ -16,30 +16,30 @@ norris.config = function($stateProvider, $urlRouterProvider) {
   $stateProvider.
       state('home', {
         url: '/',
-        templateUrl: 'views/home/home.html'
+        templateUrl: 'states/home/home.html'
       }).
       state('cats', {
         url: '/cats',
-        templateUrl: 'views/cats/cats.html',
+        templateUrl: 'states/cats/cats.html',
         controller: 'CatsController',
         controllerAs: 'catsCtrl'
       }).
       state('guestbook', {
         url: '/guestbook',
-        templateUrl: 'views/guestbook/guestbook.html',
+        templateUrl: 'states/guestbook/guestbook.html',
         controller: 'GuestBookController',
         controllerAs: 'guestCtrl'
       }).
       state('posts', {
         url: '/posts',
-        templateUrl: 'views/posts/posts.html',
+        templateUrl: 'states/posts/posts.html',
         controller: 'PostsController',
         controllerAs: 'postsCtrl'
       }).
       state('posts.show', {
-        templateUrl: 'views/posts/partials/show.html'
+        templateUrl: 'states/posts/partials/show.html'
       }).
       state('posts.add', {
-        templateUrl: 'views/posts/partials/add.html'
+        templateUrl: 'states/posts/partials/add.html'
       });
 };

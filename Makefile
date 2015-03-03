@@ -7,7 +7,7 @@ test:
 	--check-leaks
 
 test_all_unit:
-	./node_modules/karma/bin/karma start
+	./node_modules/karma/bin/karma start confs/karma.conf.js
 
 test_all_e2e:
 	./node_modules/protractor/bin/protractor e2e/protractor.conf.js
