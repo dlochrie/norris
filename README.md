@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/dlochrie/norris.png?label=ready&title=Ready)](https://waffle.io/dlochrie/norris)
 norris
 ======
 
