@@ -35,7 +35,7 @@ function KarmaConfig(config) {
 KarmaConfig.prototype.init_ = function() {
   var settings = {};
   settings.basePath = '';
-  settings.frameworks = ['jasmine', 'sinon'];
+  settings.frameworks = ['jasmine', 'sinon', 'closure'];
   settings.files = KarmaConfig.FILE_DEPENDENCIES_;
   settings.preprocessors = this.getPreprocessors_();
   settings.reporters = ['progress', 'coverage'];
@@ -171,9 +171,17 @@ KarmaConfig.FILE_DEPENDENCIES_ = [
   KarmaConfig.ANGULAR_LIB_PATH_ + 'angular-mocks.js',
   KarmaConfig.THIRD_PARTY_PATH_ + '**/*.js',
   KarmaConfig.TEMPLATE_CACHE_,
-  KarmaConfig.APPLICATION_PATH_ + '**/!(app).js',
+  {
+    pattern: KarmaConfig.APPLICATION_PATH_ + '**/!(app).js',
+    included: false
+  },
   KarmaConfig.APPLICATION_PATH_ + 'app.js',
   KarmaConfig.APPLICATION_PATH_ + 'app_test.js',
+  {
+    pattern: KarmaConfig.CLOSURE_LIB_PATH_ + 'deps.js',
+    included: false,
+    served: false
+  },
   {pattern: KarmaConfig.CLOSURE_LIB_PATH_ + '**/*.js', included: false},
   KarmaConfig.PARTIALS_PATH_SOURCE_PATH_
 ];
@@ -187,7 +195,10 @@ KarmaConfig.FILE_DEPENDENCIES_ = [
  * @private
  */
 KarmaConfig.PREPROCESSORS_ = [
-  {key: KarmaConfig.CLOSURE_DEPS_, values: ['closure']},
+  {key: KarmaConfig.CLOSURE_LIB_PATH_ + 'deps.js', values: ['closure']},
+  {key: KarmaConfig.CLOSURE_LIB_PATH_ + '**/*.js', values: ['closure']},
+  {key: KarmaConfig.APPLICATION_PATH_ + '**/*.js', values: ['closure']},
+  {key: KarmaConfig.TEMPLATE_CACHE_, values: ['closure']},
   {key: KarmaConfig.SOURCE_FILES_PATH_, values: ['coverage']},
   {key: KarmaConfig.PARTIALS_PATH_SOURCE_PATH_, values: 'ng-html2js'}
 ];
